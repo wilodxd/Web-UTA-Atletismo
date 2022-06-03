@@ -1,0 +1,14 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.actividad{
+
+    border: 3px solid v.$grisClaro;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+
+    &__texto {
+        text-align: center;
+    }
+}

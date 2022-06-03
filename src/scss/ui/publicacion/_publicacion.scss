@@ -37,15 +37,15 @@
 }
 
 .lateral-contenedor{
-    display: none;
+    // display: none;
     padding: 4rem 0;
 
     @include m.desktop { 
         display: block;
     }
 
-    // &__titulo{
-    //     padding: 2rem 0;
-    // }
+    aside {
+        display: none;
+    }
 
 }
