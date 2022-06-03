@@ -1,0 +1,73 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.publicaciones,
+.actividades{
+    padding: 5rem 3rem;
+    font-size: 3rem;
+    &__titulo{
+        font-size: 3rem;
+    }
+}
+
+.publicacion{
+    border-bottom: 1px solid #e1e1e1;
+    margin-bottom: 2rem;
+
+    @include m.tablet { 
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        padding-bottom: 2rem;
+        gap: 2rem;
+
+        &__imagen{
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    @include m.desktop { 
+        &--actividad{
+            grid-template-columns: none;
+            grid-template-rows: 10rem, 20rem;
+            padding-bottom: 2rem;
+            gap: 2rem;
+            /* padding-left: 1rem;
+            border-left: 1px solid #a8a8a8; */
+        }
+    
+        &__imagen--actividad{
+            height: auto;
+            object-fit: cover;
+        }
+    }
+
+    &__titulo{
+        font-size: 3rem;
+    }
+
+    &__resumen{
+        font-size: 2rem;
+    }
+
+    &__meta{
+        display: flex;
+        justify-content: space-between;
+
+        @include m.desktop { 
+            flex-direction: column;
+        }
+    }
+
+    &__fecha,
+    &__escritor{
+        font-size: 1.5rem;
+
+        span {
+            color: v.$primario;
+        }
+    }
+
+    
+
+}
