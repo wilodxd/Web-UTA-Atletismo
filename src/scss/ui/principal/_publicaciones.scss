@@ -1,8 +1,8 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
 
-.publicaciones,
-.actividades{
+.seccion-publicaciones,
+.seccion-actividades{
     padding: 5rem 3rem;
     font-size: 3rem;
     &__titulo{
