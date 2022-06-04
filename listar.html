@@ -26,11 +26,11 @@
 
     <main>
         <div class="container py-5">
-            <button class="btn btn-light btn-block" type="button" data-toggle="collapse" data-target="#tablaProgresoPersonal">
+            <button class="btn btn-light btn-block" type="button" data-toggle="collapse" data-target="#tablaUsuarios">
                 Lista de usuarios
             </button>
             
-            <div class="collapse show" id="tablaProgresoPersonal">
+            <div class="collapse show" id="tablaUsuarios">
                 <form>
                     <div class="table-responsive border border-dark" style="height: 500px;">
                         <table class="table">
@@ -51,14 +51,14 @@
                                     <td>Ing. Informatica</td>
                                     <td>
                                         <div class="row">
-                                            <div class="col-12 col-md-6">
+                                            <div class="col-12 col-lg-6">
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modificarUsuario">Modificar</button>
 
                                                 <div class="modal fade" id="modificarUsuario" tabindex="-1" aria-labelledby="modificarUsuario" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                       <div class="modal-content">
                                                         <div class="modal-header">
-                                                          <h5 class="modal-title">Modificar los datos</h5>
+                                                          <h5 class="modal-title">Modificar los datos de usuario</h5>
                                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                           </button>
@@ -106,7 +106,7 @@
                                                 </div>
 
                                             </div>
-                                            <div class="col-12 col-md-6">
+                                            <div class="col-12 col-lg-6">
 
                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#eliminarUsuario">Eliminar</button>
 
@@ -125,7 +125,7 @@
                                                             
                                                             <!--Aqui va el nombre del usuario-->
                                                             <div class="modal-body">
-                                                                Piero Suarez
+                                                                <p>Piero Suarez</p>
                                                             </div>
 
                                                             <div class="modal-footer">
@@ -201,7 +201,193 @@
                 </form>
             </div>
         </div>
+        <div class="container py-5">
+            <button class="btn btn-light btn-block" type="button" data-toggle="collapse" data-target="#tablaPublicaciones">
+                Lista de publicaciones
+            </button>
+
+            <div class="collapse show" id="tablaPublicaciones">
+                <form>
+                    <div class="table-responsive border border-dark" style="height: 500px;">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Imagen</th>
+                                    <th scope="col">Titulo</th>                                            
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>
+                                        <img class="" src="img/publicacion0.jpg" alt="imagen sobre la publicacion" style="max-height: 150px;">
+                                    </td>                                            
+                                    <td>Titulo de publicacion</td>
+                                    <td>04/26/2022</td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6">
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modificarPublicacion">Modificar</button>
+
+                                                <div class="modal fade" id="modificarPublicacion" tabindex="-1" aria-labelledby="modificarPublicacion" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                      <div class="modal-content">
+                                                        <div class="modal-header">
+                                                          <h5 class="modal-title">Modificar datos de la publicacion</h5>
+                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                          </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form>
+                                                                <div class="form-row mb-3">
+                                                                    <label for="formControlInput1" class="col-form-label col-12 col-md-3">Título</label>
+                                                                    <div class="col">
+                                                                        <input type="text" class="form-control" value="Titulo de publicacion">
+                                                                    </div>
+                                                                </div>
+                                                    
+                                                                <div class="form-row mb-3">
+                                                                    <label for="formControlInput2" class="col-12 col-md-3">Imagen</label>
+                                                                    <div class="col">
+                                                                        <input type="file" class="form-control-file" accept=".png, .jpeg" onchange="loadFile(event)">
+                                                                        <img src="img/publicacion0.jpg" class="mt-2" id="output" alt="Imagen publicación" style="max-width: 200px;">
+                                                                    </div>
+                                                                </div>
+                                                    
+                                                                <div class="form-row mb-3">
+                                                                    <label for="formControlInput3" class="col-12 col-md-3">Contenido</label>
+                                                                    <div class="col">
+                                                                        <textarea class="form-control" style="height: 200px; resize: none;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam sapiente recusandae quis enim dolor incidunt placeat ducimus, laudantium error ut, eius pariatur cumque minus totam laborum! Perspiciatis aliquam animi sapiente!</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <div class="form-row mb-3">
+                                                                    <label for="formControlInput4" class="col-3">Actividad</label>
+                                                                    <div class="col">
+                                                                        <input type="checkbox">
+                                                                    </div>
+                                                                </div>                                        
+                                                            </form>
+                                                        </div>
+                        
+                                                        <!--revisar si esto debe ir dentro del form-->
+                        
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                            <button type="button" class="btn btn-primary">Guardar</button>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#eliminarPublicacion">Eliminar</button>
+
+                                                <!-- Modal confirmar eliminar publicacion-->
+                                                <div class="modal fade" id="eliminarPublicacion">
+
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres eliminar esta publicacion?</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            
+                                                            <!--Aqui va la info de la publicacion-->
+                                                            <div class="modal-body">
+                                                                <p>Titulo de publicacion<br>04/26/2022</p>
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                <button type="button" class="btn btn-danger">Confirmar eliminación</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                
+                            </tbody>
+                        </table>
+                        
+                        <div class="offset-9">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarPublicacion">Agregar</button>
+                        </div> 
+                        
+                        <div class="modal fade" id="agregarPublicacion" tabindex="-1" aria-labelledby="agregarPublicacion" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Ingresar datos de publicacion</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-row mb-3">
+                                            <label for="formControlInput1" class="col-form-label col-12 col-md-3">Título</label>
+                                            <div class="col">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                            
+                                        <div class="form-row mb-3">
+                                            <label for="formControlInput2" class="col-12 col-md-3">Imagen</label>
+                                            <div class="col">
+                                                <input type="file" class="form-control-file" accept=".png, .jpeg" onchange="loadFile(event)">
+                                                <img class="mt-2" id="output" alt="Imagen publicación" hidden style="max-width: 200px;">
+                                            </div>
+                                        </div>
+                            
+                                        <div class="form-row mb-3">
+                                            <label for="formControlInput3" class="col-12 col-md-3">Contenido</label>
+                                            <div class="col">
+                                                <textarea class="form-control" style="height: 200px; resize: none;"></textarea>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-row mb-3">
+                                            <label for="formControlInput4" class="col-3">Actividad</label>
+                                            <div class="col">
+                                                <input type="checkbox">
+                                            </div>
+                                        </div>                                        
+                                    </form>
+                                </div>
+
+                                <!--revisar si esto debe ir dentro del form-->
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary">Guardar</button>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+
+                    </div>  
+                </form>
+            </div>
+        </div>
+
     </main>
+    
+
     
 
     <footer class="footer">
@@ -215,6 +401,15 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
     
+    <!--Cambia el url de la imagen por el archivo seleccionado y la muestra (hidden = false)-->
+    <script>
+        var loadFile = function(event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+            image.hidden = false;
+        };
+    </script>
+
     
 </body>
 </html>
