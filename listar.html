@@ -46,50 +46,113 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td>Piero Suarez</td>                                            
-                                    <td>11.111.222-4</td>
-                                    <td>Ing. informatica</td>
+                                    <td>Piero Alonso Suarez Zuñiga</td>                                            
+                                    <td>11.111.111-1</td>
+                                    <td>Ing. Informatica</td>
                                     <td>
                                         <div class="row">
                                             <div class="col-12 col-md-6">
-                                                <button type="button" class="btn btn-secondary">Modificar</button>
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modificarUsuario">Modificar</button>
+
+                                                <div class="modal fade" id="modificarUsuario" tabindex="-1" aria-labelledby="modificarUsuario" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                      <div class="modal-content">
+                                                        <div class="modal-header">
+                                                          <h5 class="modal-title">Modificar los datos</h5>
+                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                          </button>
+                                                        </div>
+
+                                                        <!--Valores de ejemplo-->
+                                                        <div class="modal-body">
+                                                            <form>                                                
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="col-form-label">Nombre:</label>
+                                                                    <input class="form-control" value="Piero Alonso">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="col-form-label">Apellidos:</label>
+                                                                    <input class="form-control" value="Suarez Zuñiga">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="message-text" class="col-form-label">Rut:</label>
+                                                                    <input class="form-control" value="11.111.111-1">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="message-text" class="col-form-label">Fecha de ingreso:</label>
+                                                                    <input class="form-control" value="03/06/2022">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="message-text" class="col-form-label">Carrera:</label>
+                                                                    <input class="form-control" value="Ing. Informatica">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="message-text" class="col-form-label">Correo electronico:</label>
+                                                                    <input type="email" class="form-control" value="piero.suarez.zuniga@alumnos.uta.cl">
+                                                                </div>                                                   
+                        
+                                                            </form>
+                                                        </div>
+                        
+                                                        <!--revisar si esto debe ir dentro del form-->
+                        
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                            <button type="button" class="btn btn-primary">Guardar</button>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                             <div class="col-12 col-md-6">
-                                                <button type="button" class="btn btn-danger">Eliminar</button>
+
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#eliminarUsuario">Eliminar</button>
+
+                                                <!-- Modal confirmar eliminar usuario-->
+                                                <div class="modal fade" id="eliminarUsuario">
+
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres eliminar a este usuario?</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            
+                                                            <!--Aqui va el nombre del usuario-->
+                                                            <div class="modal-body">
+                                                                Piero Suarez
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                <button type="button" class="btn btn-danger">Confirmar eliminación</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Piero Suarez</td>                                            
-                                    <td>11.111.222-4</td>
-                                    <td>Ing. informatica</td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-12 col-md-6">
-                                                <button type="button" class="btn btn-secondary">Modificar</button>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <button type="button" class="btn btn-danger">Eliminar</button>
-                                            </div>
-
-                                        </div>
-                                    </td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                         
                         <div class="offset-9">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Agregar</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarUsuario">Agregar</button>
                         </div> 
                         
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="agregarUsuario" tabindex="-1" aria-labelledby="agregarUsuario" aria-hidden="true">
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title">Ingresar registro</h5>
+                                  <h5 class="modal-title">Ingresar datos de usuario</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
@@ -132,7 +195,7 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
+                        </div>
 
                     </div>  
                 </form>
