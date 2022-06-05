@@ -31,13 +31,19 @@
     </header>
 
     <main class="seccion-administracion">
+
+        <!--Container de la lista de usuarios-->
         <div class="container pt-5">
+
+            <!--Boton para maximizar la tabla, se necesita hacer el data-target al id de la tabla(div que contiene a la tabla)-->
             <button class="btn btn-light btn-block" type="button" data-toggle="collapse" data-target="#tablaUsuarios">
                 Lista de usuarios
             </button>
             
             <div class="collapse" id="tablaUsuarios">
                 <form>
+                    <!--? el style-->
+                    <!--Tabla con los usuarios-->
                     <div class="table-responsive border border-dark" style="height: 500px;">
                         <table class="table">
                             <thead class="thead-dark">
@@ -60,13 +66,13 @@
                                             <div class="col-12 col-lg-6">
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modificarUsuario">Modificar</button>
 
-                                                <div class="modal fade" id="modificarUsuario" tabindex="-1" aria-labelledby="modificarUsuario" aria-hidden="true">
+                                                <div class="modal fade" id="modificarUsuario">
                                                     <div class="modal-dialog">
                                                       <div class="modal-content">
                                                         <div class="modal-header">
                                                           <h5 class="modal-title">Modificar los datos de usuario</h5>
-                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
+                                                          <button type="button" class="close" data-dismiss="modal">
+                                                            <span>&times;</span>
                                                           </button>
                                                         </div>
 
@@ -74,34 +80,34 @@
                                                         <div class="modal-body">
                                                             <form>                                                
                                                                 <div class="form-group">
-                                                                    <label for="recipient-name" class="col-form-label">Nombre:</label>
+                                                                    <label class="col-form-label">Nombre:</label>
                                                                     <input class="form-control" value="Piero Alonso">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="recipient-name" class="col-form-label">Apellidos:</label>
+                                                                    <label class="col-form-label">Apellidos:</label>
                                                                     <input class="form-control" value="Suarez Zuñiga">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="message-text" class="col-form-label">Rut:</label>
+                                                                    <label class="col-form-label">Rut:</label>
                                                                     <input class="form-control" value="11.111.111-1">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="message-text" class="col-form-label">Fecha de ingreso:</label>
+                                                                    <label class="col-form-label">Fecha de ingreso:</label>
                                                                     <input class="form-control" value="03/06/2022">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="message-text" class="col-form-label">Carrera:</label>
+                                                                    <label class="col-form-label">Carrera:</label>
                                                                     <input class="form-control" value="Ing. Informatica">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="message-text" class="col-form-label">Correo electronico:</label>
+                                                                    <label class="col-form-label">Correo electronico:</label>
                                                                     <input type="email" class="form-control" value="piero.suarez.zuniga@alumnos.uta.cl">
                                                                 </div>                                                   
                         
                                                             </form>
                                                         </div>
                         
-                                                        <!--revisar si esto debe ir dentro del form-->
+                                                        <!--? revisar si esto debe ir dentro del form-->
                         
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -124,8 +130,8 @@
 
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres eliminar a este usuario?</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
+                                                                <button type="button" class="close" data-dismiss="modal">
+                                                                <span>&times;</span>
                                                                 </button>
                                                             </div>
                                                             
@@ -152,6 +158,7 @@
 
                     </div>  
 
+                    <!--Boton para agregar usuarios-->
                     <div class="btn-responsive">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarUsuario">Agregar</button>
                     </div> 
@@ -161,8 +168,8 @@
                           <div class="modal-content">
                             <div class="modal-header">
                               <h2 class="modal-title">Ingresar datos de usuario</h2>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                              <button type="button" class="close" data-dismiss="modal">
+                                <span>&times;</span>
                               </button>
                             </div>
                             <div class="modal-body">
@@ -172,30 +179,30 @@
                                         <input class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Apellidos:</label>
+                                        <label class="col-form-label">Apellidos:</label>
                                         <input class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Rut:</label>
+                                        <label class="col-form-label">Rut:</label>
                                         <input class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Fecha de ingreso:</label>
+                                        <label class="col-form-label">Fecha de ingreso:</label>
                                         <input class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Carrera:</label>
+                                        <label class="col-form-label">Carrera:</label>
                                         <input class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Correo electronico:</label>
+                                        <label class="col-form-label">Correo electronico:</label>
                                         <input type="email" class="form-control">
                                     </div>                                                   
 
                                 </form>
                             </div>
 
-                            <!--revisar si esto debe ir dentro del form-->
+                            <!--? revisar si esto debe ir dentro del form-->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                 <button type="button" class="btn btn-primary">Guardar</button>
@@ -212,8 +219,10 @@
                 Lista de publicaciones
             </button>
 
+            <!--Tabla con publicaciones-->
             <div class="collapse" id="tablaPublicaciones">
                 <form>
+                    <!--? style debe ir en css-->
                     <div class="table-responsive border border-dark" style="height: 500px;">
                         <table class="table">
                             <thead class="thead-dark">
@@ -238,13 +247,13 @@
                                             <div class="col-12 col-lg-6">
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modificarPublicacion">Modificar</button>
 
-                                                <div class="modal fade" id="modificarPublicacion" tabindex="-1" aria-labelledby="modificarPublicacion" aria-hidden="true">
+                                                <div class="modal fade" id="modificarPublicacion">
                                                     <div class="modal-dialog">
                                                       <div class="modal-content">
                                                         <div class="modal-header">
                                                           <h5 class="modal-title">Modificar datos de la publicacion</h5>
-                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
+                                                          <button type="button" class="close" data-dismiss="modal">
+                                                            <span>&times;</span>
                                                           </button>
                                                         </div>
                                                         <div class="modal-body">
@@ -260,6 +269,7 @@
                                                                     <label for="formControlInput2" class="col-12 col-md-3">Imagen</label>
                                                                     <div class="col">
                                                                         <input type="file" class="form-control-file" accept=".png, .jpeg" onchange="loadFile(event, 'imgModificar')">
+                                                                        <!--? style dentro csss-->
                                                                         <img src="img/publicacion0.jpg" class="mt-2" id="imgModificar" alt="Imagen publicación" style="max-width: 200px;">
                                                                     </div>
                                                                 </div>
@@ -267,6 +277,7 @@
                                                                 <div class="form-row mb-3">
                                                                     <label for="formControlInput3" class="col-12 col-md-3">Contenido</label>
                                                                     <div class="col">
+                                                                        <!--? style dentro csss-->
                                                                         <textarea class="form-control" style="height: 200px; resize: none;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam sapiente recusandae quis enim dolor incidunt placeat ducimus, laudantium error ut, eius pariatur cumque minus totam laborum! Perspiciatis aliquam animi sapiente!</textarea>
                                                                     </div>
                                                                 </div>
@@ -303,8 +314,8 @@
 
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres eliminar esta publicacion?</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
+                                                                <button type="button" class="close" data-dismiss="modal">
+                                                                <span>&times;</span>
                                                                 </button>
                                                             </div>
                                                             
@@ -339,13 +350,13 @@
                     </div>
 
 
-                    <div class="modal fade" id="agregarPublicacion" tabindex="-1" aria-labelledby="agregarPublicacion" aria-hidden="true">
+                    <div class="modal fade" id="agregarPublicacion">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
                               <h5 class="modal-title">Ingresar datos de publicacion</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                              <button type="button" class="close" data-dismiss="modal">
+                                <span>&times;</span>
                               </button>
                             </div>
                             <div class="modal-body">
@@ -361,6 +372,7 @@
                                         <label for="formControlInput2" class="col-12 col-md-3">Imagen</label>
                                         <div class="col">
                                             <input type="file" class="form-control-file" accept=".png, .jpeg" onchange="loadFile(event,'imgAgregar')">
+                                            <!--? style -->
                                             <img class="mt-2" id="imgAgregar" alt="Imagen publicación" hidden style="max-width: 200px;">
                                         </div>
                                     </div>
@@ -368,11 +380,12 @@
                                     <div class="form-row mb-3">
                                         <label for="formControlInput3" class="col-12 col-md-3">Contenido</label>
                                         <div class="col">
+                                            <!--? style -->
                                             <textarea class="form-control" style="height: 200px; resize: none;"></textarea>
                                         </div>
                                     </div>
                                     
-                                    <div class="form-row mb-3" style="align-items: center;">
+                                    <div class="form-row mb-3">
                                         <label for="formControlInput4" class="col-3">Actividad</label>
                                         <div class="col" >
                                             <input type="checkbox">
