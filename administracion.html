@@ -16,21 +16,27 @@
                 <img class="header__logo" src="img/logo.png" alt="Logo del club atletico universitarios de tarapaca">
                 <h1 class="header__titulo">Club Atletico Universitarios de Tarapaca</h1>
             </div>
-            <nav class="navegacion">
-                <a href="#" class="navegacion__link">Inicio</a>
+            <!-- <nav class="navegacion">
+                <a href="/" class="navegacion__link">Inicio</a>
                 <a href="#" class="navegacion__link">Nosotros</a>
                 <a href="#" class="navegacion__link navegacion__link--ingresar">Ingresar</a>
+            </nav> -->
+            <nav class="navegacion">
+                <a href="/" class="navegacion__link">Inicio</a>
+                <!-- <a href="#" class="navegacion__link">Nosotros</a> -->
+                <a href="/pagina-usuario.html" class="navegacion__link">Perfil</a>
+                <a href="/administracion.html" class="navegacion__link navegacion__link--secundario">Administracion</a>
             </nav>
         </div>
     </header>
 
-    <main>
-        <div class="container py-5">
+    <main class="seccion-administracion">
+        <div class="container pt-5">
             <button class="btn btn-light btn-block" type="button" data-toggle="collapse" data-target="#tablaUsuarios">
                 Lista de usuarios
             </button>
             
-            <div class="collapse show" id="tablaUsuarios">
+            <div class="collapse" id="tablaUsuarios">
                 <form>
                     <div class="table-responsive border border-dark" style="height: 500px;">
                         <table class="table">
@@ -143,70 +149,71 @@
                                 
                             </tbody>
                         </table>
-                        
-                        <div class="offset-9">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarUsuario">Agregar</button>
-                        </div> 
-                        
-                        <div class="modal fade" id="agregarUsuario" tabindex="-1" aria-labelledby="agregarUsuario" aria-hidden="true">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title">Ingresar datos de usuario</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>                                                
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Nombre:</label>
-                                            <input class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Apellidos:</label>
-                                            <input class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="message-text" class="col-form-label">Rut:</label>
-                                            <input class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="message-text" class="col-form-label">Fecha de ingreso:</label>
-                                            <input class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="message-text" class="col-form-label">Carrera:</label>
-                                            <input class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="message-text" class="col-form-label">Correo electronico:</label>
-                                            <input type="email" class="form-control">
-                                        </div>                                                   
-
-                                    </form>
-                                </div>
-
-                                <!--revisar si esto debe ir dentro del form-->
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary">Guardar</button>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
 
                     </div>  
+
+                    <div class="btn-responsive">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarUsuario">Agregar</button>
+                    </div> 
+                    
+                    <div class="modal fade" id="agregarUsuario" tabindex="-1" aria-labelledby="agregarUsuario" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Ingresar datos de usuario</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>                                                
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Nombre:</label>
+                                        <input class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Apellidos:</label>
+                                        <input class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Rut:</label>
+                                        <input class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Fecha de ingreso:</label>
+                                        <input class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Carrera:</label>
+                                        <input class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Correo electronico:</label>
+                                        <input type="email" class="form-control">
+                                    </div>                                                   
+
+                                </form>
+                            </div>
+
+                            <!--revisar si esto debe ir dentro del form-->
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary">Guardar</button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+
                 </form>
             </div>
         </div>
-        <div class="container py-5">
+        <div class="container pb-5">
             <button class="btn btn-light btn-block" type="button" data-toggle="collapse" data-target="#tablaPublicaciones">
                 Lista de publicaciones
             </button>
 
-            <div class="collapse show" id="tablaPublicaciones">
+            <div class="collapse" id="tablaPublicaciones">
                 <form>
                     <div class="table-responsive border border-dark" style="height: 500px;">
                         <table class="table">
@@ -324,63 +331,67 @@
                             </tbody>
                         </table>
                         
-                        <div class="offset-9">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarPublicacion">Agregar</button>
-                        </div> 
                         
-                        <div class="modal fade" id="agregarPublicacion" tabindex="-1" aria-labelledby="agregarPublicacion" aria-hidden="true">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title">Ingresar datos de publicacion</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="form-row mb-3">
-                                            <label for="formControlInput1" class="col-form-label col-12 col-md-3">Título</label>
-                                            <div class="col">
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                            
-                                        <div class="form-row mb-3">
-                                            <label for="formControlInput2" class="col-12 col-md-3">Imagen</label>
-                                            <div class="col">
-                                                <input type="file" class="form-control-file" accept=".png, .jpeg" onchange="loadFile(event)">
-                                                <img class="mt-2" id="output" alt="Imagen publicación" hidden style="max-width: 200px;">
-                                            </div>
-                                        </div>
-                            
-                                        <div class="form-row mb-3">
-                                            <label for="formControlInput3" class="col-12 col-md-3">Contenido</label>
-                                            <div class="col">
-                                                <textarea class="form-control" style="height: 200px; resize: none;"></textarea>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="form-row mb-3">
-                                            <label for="formControlInput4" class="col-3">Actividad</label>
-                                            <div class="col">
-                                                <input type="checkbox">
-                                            </div>
-                                        </div>                                        
-                                    </form>
-                                </div>
 
-                                <!--revisar si esto debe ir dentro del form-->
+                    </div> 
 
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary">Guardar</button>
-                                </div>
-                              </div>
+                    <div class="btn-responsive">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarPublicacion">Agregar</button>
+                    </div>
+
+
+                    <div class="modal fade" id="agregarPublicacion" tabindex="-1" aria-labelledby="agregarPublicacion" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Ingresar datos de publicacion</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
                             </div>
-                        </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-row mb-3">
+                                        <label for="formControlInput1" class="col-form-label col-12 col-md-3">Título</label>
+                                        <div class="col">
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                        
+                                    <div class="form-row mb-3">
+                                        <label for="formControlInput2" class="col-12 col-md-3">Imagen</label>
+                                        <div class="col">
+                                            <input type="file" class="form-control-file" accept=".png, .jpeg" onchange="loadFile(event)">
+                                            <img class="mt-2" id="output" alt="Imagen publicación" hidden style="max-width: 200px;">
+                                        </div>
+                                    </div>
+                        
+                                    <div class="form-row mb-3">
+                                        <label for="formControlInput3" class="col-12 col-md-3">Contenido</label>
+                                        <div class="col">
+                                            <textarea class="form-control" style="height: 200px; resize: none;"></textarea>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row mb-3">
+                                        <label for="formControlInput4" class="col-3">Actividad</label>
+                                        <div class="col">
+                                            <input type="checkbox">
+                                        </div>
+                                    </div>                                        
+                                </form>
+                            </div>
 
-                    </div>  
+                            <!--revisar si esto debe ir dentro del form-->
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary">Guardar</button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+
                 </form>
             </div>
         </div>

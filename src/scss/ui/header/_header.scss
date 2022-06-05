@@ -66,6 +66,7 @@
 
         @include m.tablet { 
             margin:0;
+            border-radius: 1rem;
         }
 
         &:hover {
@@ -78,8 +79,8 @@
             }
         }
 
-        &--ingresar{
-            background: #eb8129;
+        &--primario{
+            background: v.$primario;
             color: #fff;
             font-weight: 900;
 
@@ -89,5 +90,20 @@
                 font-weight: 900;
             }
         }
+
+        
+
+        &--secundario{
+            background: v.$terciario;
+            color: #fff;
+            font-weight: 900;
+            
+            &:hover{
+                background: #1b2d2a;
+                color: #fff;
+                font-weight: 900;
+            }
+        }
+
     }
 }

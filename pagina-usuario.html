@@ -20,16 +20,22 @@
                 <img class="header__logo" src="img/logo.png" alt="Logo del club atletico universitarios de tarapaca">
                 <h1 class="header__titulo">Club Atletico Universitarios de Tarapaca</h1>
             </div>
-            <nav class="navegacion">
-                <a href="#" class="navegacion__link">Inicio</a>
+            <!-- <nav class="navegacion">
+                <a href="/" class="navegacion__link">Inicio</a>
                 <a href="#" class="navegacion__link">Nosotros</a>
                 <a href="#" class="navegacion__link navegacion__link--ingresar">Ingresar</a>
+            </nav> -->
+            <nav class="navegacion">
+                <a href="/" class="navegacion__link">Inicio</a>
+                <!-- <a href="#" class="navegacion__link">Nosotros</a> -->
+                <a href="/pagina-usuario.html" class="navegacion__link">Perfil</a>
+                <a href="/administracion.html" class="navegacion__link navegacion__link--secundario">Administracion</a>
             </nav>
         </div>
     </header>
 
     <!--Primera seccion-->
-    <main>
+    <main class="seccion-perfil">
         <section class="py-5">        
             <div class="container-fluid">
                 <div class="row ">
@@ -43,8 +49,8 @@
                         <div class="collapse show" id="datosPersonales">
                             <div class="card flex-row flex-wrap flex-md-nowrap align-items-center border border-dark" style="min-height: 300px;">
                                 <div class="card-header border-0 ">
-                                    <img src="img/1-usain-bolt-medallas.jpg" alt="imagen_usuario" class="img-fluid">
-                                    <h4 class="card-title">Nombre Apellido</h4>
+                                    <img src="img/1-usain-bolt-medallas.jpg" alt="imagen_usuario" class="img-fluid img-responsive">
+                                    <h2 class="card-title">Nombre Apellido</h2>
                                 </div>
                                 <div class="card-block px-2 ">                                
                                     <p>Rut: 11.111.111-1</p>
@@ -164,54 +170,55 @@
                                         </tbody>
                                     </table>
                                     
-                                    <div class="offset-9">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Agregar</button>
-                                    </div> 
-                                    
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                          <div class="modal-content">
-                                            <div class="modal-header">
-                                              <h5 class="modal-title">Ingresar registro</h5>
-                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>                                                
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">Fecha:</label>
-                                                        <input class="form-control" id="datepicker"/>
-                                                        <script>
-                                                            $('#datepicker').datepicker({
-                                                                uiLibrary: 'bootstrap4'
-                                                            });
-                                                        </script>
-                                                    </div>                                                
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="col-form-label">Tiempo:</label>
-                                                        <input type="number" class="form-control" id="recipient-name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="col-form-label">Distancia:</label>
-                                                        <input type="number" class="form-control" id="recipient-name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="message-text" class="col-form-label">Comentario:</label>
-                                                        <textarea class="form-control" id="message-text"></textarea>
-                                                    </div>                                                  
-    
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                <button type="button" class="btn btn-primary">Guardar</button>
-                                            </div>
-                                          </div>
+                                </div>  
+
+                                <div class="btn-responsive">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Agregar</button>
+                                </div> 
+                                
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title">Ingresar registro</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>                                                
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Fecha:</label>
+                                                    <input class="form-control" id="datepicker"/>
+                                                    <script>
+                                                        $('#datepicker').datepicker({
+                                                            uiLibrary: 'bootstrap4'
+                                                        });
+                                                    </script>
+                                                </div>                                                
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="col-form-label">Tiempo:</label>
+                                                    <input type="number" class="form-control" id="recipient-name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="col-form-label">Distancia:</label>
+                                                    <input type="number" class="form-control" id="recipient-name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="col-form-label">Comentario:</label>
+                                                    <textarea class="form-control" id="message-text"></textarea>
+                                                </div>                                                  
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                            <button type="button" class="btn btn-primary">Guardar</button>
                                         </div>
                                       </div>
-    
-                                </div>  
+                                    </div>
+                                </div>
+                                
                             </form>
                         </div>
                                                               

@@ -16,6 +16,7 @@
     grid-column: 2/4;
     margin: 0 auto;
     max-width: 90rem;
+    display: inherit;
 
     @include m.tablet { 
         padding: 2rem 5rem;
@@ -44,8 +45,12 @@
         display: block;
     }
 
+
     aside {
         display: none;
+        @include m.desktop { 
+            display:block;
+        }
     }
 
 }
