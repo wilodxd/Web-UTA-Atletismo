@@ -37,3 +37,11 @@ ul {
     padding: 2rem 0;
 }
 
+// form
+label, input, textarea {
+    font-size: 1.8rem !important;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5) !important;
+}
