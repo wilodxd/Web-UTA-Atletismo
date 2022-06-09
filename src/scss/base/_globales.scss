@@ -45,3 +45,8 @@ label, input, textarea {
 input[type="checkbox"] {
     transform: scale(1.5) !important;
 }
+
+input {
+    border: 1px solid v.$gris;
+    border-radius: 0.5rem !important;
+}

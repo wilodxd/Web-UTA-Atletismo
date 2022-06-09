@@ -9,9 +9,6 @@
     margin: 1rem 0 !important;
     border-radius: 1rem !important;
 
-    // @include m.tablet { 
-    //     width: 20rem !important;
-    // }
 }
 
 .btn-primary{
@@ -34,11 +31,13 @@
         width: 20rem !important;
     }
     
-
 }
 
-
-
+.btn-mini{
+    
+    width: 20rem !important;
+    
+}
 
 // Card
 .card-title {

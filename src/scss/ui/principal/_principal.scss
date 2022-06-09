@@ -2,7 +2,7 @@
 @use 'base/mixins' as m;
 
 .seccion-principal{
-    min-height: 80rem;
+    min-height: 70vh;
 
     &-contenedor{
         @include m.desktop { 
