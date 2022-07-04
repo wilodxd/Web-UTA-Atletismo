@@ -8,15 +8,15 @@ class Sesion extends Controller
 {
     
     public function index(){
-        return 'sesion';
+        return view('sesion');
     }
 
     public function contrasenaOlvidada(){
-        return 'contraseña olvidada';
+        return view('contrasena-olvidada');
     }
 
     public function cambiarContrasena(){
-        return 'cambiar contraseña';
+        return view('cambiar-contrasena');
     }
 
 }

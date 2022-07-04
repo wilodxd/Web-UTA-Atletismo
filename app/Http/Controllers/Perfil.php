@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class Perfil extends Controller
 {
     public function index(){
-        return 'perfil de usuario';
+        return view('perfil');
     }
 }

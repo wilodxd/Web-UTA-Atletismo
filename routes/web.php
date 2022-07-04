@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Inicio;
 use App\Http\Controllers\Administracion;
 use App\Http\Controllers\Sesion;
+use App\Http\Controllers\Perfil;
+use App\Http\Controllers\Publicaciones;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +18,10 @@ use App\Http\Controllers\Sesion;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [Inicio::class, 'index']);
+    // return view('welcome');
 
-Route::get( '/publicacion/{id}' , function($id) {
-    return "publicacion {$id}";
-});
+Route::get( '/publicacion/{id}' , [Publicaciones::class, 'index']);
 
 Route::get( '/sesion' , [Sesion::class, 'index']);
 
@@ -29,8 +29,6 @@ Route::get( '/contrasena-olvidada' , [Sesion::class, 'contrasenaOlvidada']);
 
 Route::get( '/cambiar-contrasena' , [Sesion::class, 'cambiarContrasena']);
 
-Route::get( '/perfil' , function() {
-    return 'perfil';
-});
+Route::get( '/perfil' , [Perfil::class, 'index']);
 
 Route::get( '/administracion' , [Administracion::class, 'index'] );
