@@ -19,7 +19,6 @@ use App\Http\Controllers\Publicaciones;
 */
 
 Route::get('/', [Inicio::class, 'index']);
-    // return view('welcome');
 
 Route::get( '/publicacion/{id}' , [Publicaciones::class, 'index']);
 
@@ -31,4 +30,4 @@ Route::get( '/cambiar-contrasena' , [Sesion::class, 'cambiarContrasena']);
 
 Route::get( '/perfil' , [Perfil::class, 'index']);
 
-Route::get( '/administracion' , [Administracion::class, 'index'] );
+Route::post( '/administracion' , [Administracion::class, 'index'] );

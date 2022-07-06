@@ -1,3 +1,4 @@
+
 @extends('layout')
 
 @section('content')
@@ -138,47 +139,57 @@
                 <div class="modal fade" id="agregarUsuario">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title">Ingresar datos de usuario</h2>
-                            <button type="button" class="close" data-dismiss="modal">
-                            <span>&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form>                                                
-                                <div class="form-group">
-                                    <label class="col-form-label">Nombre:</label>
-                                    <input class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">Apellidos:</label>
-                                    <input class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">Rut:</label>
-                                    <input class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">Fecha de ingreso:</label>
-                                    <input class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">Carrera:</label>
-                                    <input class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">Correo electronico:</label>
-                                    <input type="email" class="form-control">
-                                </div>                                                   
 
+                            <form method="post" enctype="multipart/form-data" >
+
+                                <div class="modal-header">
+                                    <h2 class="modal-title">Ingresar datos de usuario</h2>
+                                    <button type="button" class="close" data-dismiss="modal">
+                                    <span>&times;</span>
+                                    </button>
+                                </div>
+
+                        
+                                <div class="modal-body">
+                            
+                                        @csrf
+
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="nombre">Nombre:</label>
+                                            <input class="form-control" name="nombre" id="nombre" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="apellido">Apellidos:</label>
+                                            <input class="form-control" name="apellido" id="apellido">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="rut">Rut:</label>
+                                            <input class="form-control" name="rut" id="rut">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="fecha">Fecha de ingreso:</label>
+                                            <input class="form-control" name="fecha" id="fecha" type="date">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="carrera">Carrera:</label>
+                                            <input class="form-control" name="carrera" id="carrera">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="correo">Correo electronico:</label>
+                                            <input type="email" class="form-control" name="correo" id="correo">
+                                        </div>                                                   
+
+                            
+                                 </div>
+
+                                <!--? revisar si esto debe ir dentro del form-->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button class="btn btn-primary">Guardar</button>
+                                </div>
+                        
                             </form>
-                        </div>
 
-                        <!--? revisar si esto debe ir dentro del form-->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary">Guardar</button>
-                        </div>
                         </div>
                     </div>
                 </div>
