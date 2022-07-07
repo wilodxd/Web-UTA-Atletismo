@@ -51,8 +51,6 @@ class Administracion extends Controller
                     }
 
                     case 'eliminar':{
-                        echo $request->all();
-
                         $rut = $request->input('rut');
                         $usuario = Usuario::find($rut);
                         $usuario->delete();

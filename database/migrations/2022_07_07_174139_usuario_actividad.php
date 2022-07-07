@@ -15,10 +15,11 @@ return new class extends Migration
     {
         //
         Schema::create('usuarioactividad', function (Blueprint $table) {
-            $table->foreign('rut_usuario')->references('rut')->on('usuarios');
-            $table->foreign('id_publicacion')->references('id')->on('publicaciones');
-            $table->primary(['rut_usuario', 'id_publicacion']);
             
+            $table->string('rut_usuario', 10)->foreign('rut_usuario')->references('rut')->on('usuarios');
+            $table->integer('id_publicacion')->foreign('id_publicacion')->references('id')->on('publicaciones');
+            $table->primary(['rut_usuario', 'id_publicacion']);
+
         });
     }
 
