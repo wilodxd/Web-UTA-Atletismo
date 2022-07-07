@@ -8,6 +8,7 @@ use App\Models\Publicacion;
 
 class Administracion extends Controller
 {
+    
     public function index(Request $request){
         return redirect('/administracion/usuario');        
     }
@@ -32,6 +33,29 @@ class Administracion extends Controller
 
                         Usuario::insert($datosUsuario);
                         
+                        break;
+                    }
+
+                    case 'modificar':{
+                        
+                        $datosUsuario = $request->except(['_token', 'transaccion']);
+                        $usuario = Usuario::find($datosUsuario['rut']);
+
+                        // Cambiar tipo de usuario a 1 (administrador)
+                        if( array_key_exists('tipo_usuario', $datosUsuario) ){
+                            $datosUsuario['tipo_usuario'] = 1;
+                        }
+
+                        $usuario->update($datosUsuario);
+                        break;
+                    }
+
+                    case 'eliminar':{
+                        echo $request->all();
+
+                        $rut = $request->input('rut');
+                        $usuario = Usuario::find($rut);
+                        $usuario->delete();
                         break;
                     }
 
