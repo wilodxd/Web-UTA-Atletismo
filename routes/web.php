@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Inicio;
 use App\Http\Controllers\Administracion;
 use App\Http\Controllers\Sesion;
 use App\Http\Controllers\Perfil;
 use App\Http\Controllers\Publicaciones;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +24,7 @@ Route::get('/', [Inicio::class, 'index']);
 
 Route::get( '/publicacion/{id}' , [Publicaciones::class, 'index']);
 
-Route::get( '/sesion' , [Sesion::class, 'index']);
+Route::view( '/sesion' , 'sesion');
 
 Route::get( '/contrasena-olvidada' , [Sesion::class, 'contrasenaOlvidada']);
 
@@ -33,3 +35,13 @@ Route::get( '/perfil' , [Perfil::class, 'index']);
 Route::get( '/administracion' , [Administracion::class, 'index'] );
 Route::match( array('GET','POST'), '/administracion/usuario' , [Administracion::class, 'usuario'] );
 Route::match( array('GET','POST'), '/administracion/publicacion' , [Administracion::class, 'publicacion'] );
+
+Route::post('sesion', function(){
+    $credentials = request()->only('rut', 'password');
+
+    if(Auth::attempt($credentials)){
+        return 'funciona';
+    } else{
+        return 'no funciona';
+    }
+});

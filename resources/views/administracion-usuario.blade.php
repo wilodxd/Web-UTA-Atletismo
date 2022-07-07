@@ -90,57 +90,57 @@
                     
                             <div class="modal-body">
                         
-                                    @csrf
+                                @csrf
 
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="nombre">Nombre:</label>
-                                        <input class="form-control" name="nombre" id="nombre" >
-                                    </div>
-                                    
-                                    <div class="form-group-h row">
-                                        <div class="form-group col-6">
-                                            <label class="col-form-label" for="apellido_1">Apellido Paterno:</label>
-                                            <input class="form-control" name="apellido_1" id="apellido_1">
-                                        </div>
-                                        <div class="form-group col-6">
-                                            <label class="col-form-label" for="apellido_2">Apellido Materno:</label>
-                                            <input class="form-control" name="apellido_2" id="apellido_2">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="rut">Rut:</label>
-                                        <input class="form-control" name="rut" id="rut">
-                                    </div>
-                                    
-                                    <div class="form-group-h row">
-                                        <div class="form-group col-6">
-                                            <label class="col-form-label" for="fecha_nacimiento">Fecha de nacimiento:</label>
-                                            <input class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" type="date">
-                                        </div>
-                                        <div class="form-group col-6">
-                                            <label class="col-form-label" for="fecha_ingreso">Fecha de ingreso:</label>
-                                            <input class="form-control" name="fecha_ingreso" id="fecha_ingreso" type="date">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="carrera">Carrera:</label>
-                                        <input class="form-control" name="carrera" id="carrera">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="correo">Correo electronico:</label>
-                                        <input type="email" class="form-control" name="correo" id="correo">
-                                    </div>                                                   
-
-                                    <div class="form-row mb-3" style="align-items: center;">
-                                        <label for="tipo_usuario" class="col-3">Administrador</label>
-                                        <div class="col">
-                                            <input type="checkbox" id="tipo_usuario" name="tipo_usuario">
-                                        </div>
-                                    </div>       
-                        
+                                <div class="form-group">
+                                    <label class="col-form-label" for="nombre">Nombre:</label>
+                                    <input class="form-control" name="nombre" id="nombre" >
                                 </div>
+                                
+                                <div class="form-group-h row">
+                                    <div class="form-group col-6">
+                                        <label class="col-form-label" for="apellido_1">Apellido Paterno:</label>
+                                        <input class="form-control" name="apellido_1" id="apellido_1">
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label class="col-form-label" for="apellido_2">Apellido Materno:</label>
+                                        <input class="form-control" name="apellido_2" id="apellido_2">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label" for="rut">Rut:</label>
+                                    <input class="form-control" name="rut" id="rut">
+                                </div>
+                                
+                                <div class="form-group-h row">
+                                    <div class="form-group col-6">
+                                        <label class="col-form-label" for="fecha_nacimiento">Fecha de nacimiento:</label>
+                                        <input class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" type="date">
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label class="col-form-label" for="fecha_ingreso">Fecha de ingreso:</label>
+                                        <input class="form-control" name="fecha_ingreso" id="fecha_ingreso" type="date">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label" for="carrera">Carrera:</label>
+                                    <input class="form-control" name="carrera" id="carrera">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label" for="correo">Correo electronico:</label>
+                                    <input type="email" class="form-control" name="correo" id="correo">
+                                </div>                                                   
+
+                                <div class="form-row mb-3" style="align-items: center;">
+                                    <label for="tipo_usuario" class="col-3">Administrador</label>
+                                    <div class="col">
+                                        <input type="checkbox" id="tipo_usuario" name="tipo_usuario">
+                                    </div>
+                                </div>       
+                        
+                            </div>
 
                             <!--? revisar si esto debe ir dentro del form-->
                             <div class="modal-footer">
@@ -312,15 +312,6 @@
         }
     }
 
-</script>
-
-<!--Cambia el url de la imagen por el archivo seleccionado y la muestra (hidden = false)-->
-<script>
-    var loadFile = function(event, idImagen) {
-        var image = document.getElementById(idImagen);
-        image.src = URL.createObjectURL(event.target.files[0]);
-        image.hidden = false;
-    };
 </script>
 
 <!-- Rellena datos para modificar el usuario -->
