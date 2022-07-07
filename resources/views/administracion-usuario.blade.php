@@ -48,7 +48,7 @@
                                 <td>{{$usuario->carrera}}</td>
                                 <td class="row">
                                     <div class="col-12 col-lg-6">
-                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modificarUsuario">Modificar</button>
+                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modificarUsuario" onClick="funcion({{$usuario->rut;}})">Modificar</button>
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#eliminarUsuario">Eliminar</button>
@@ -175,7 +175,7 @@
 
                                     <div class="form-group">
                                         <label class="col-form-label" for="nombre">Nombre:</label>
-                                        <input class="form-control" name="nombre" id="nombre" >
+                                        <input class="form-control" name="nombre" id="nombre">
                                     </div>
                                     
                                     <div class="form-group-h row">
