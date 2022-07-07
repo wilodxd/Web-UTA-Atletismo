@@ -13,7 +13,7 @@
             Lista de usuarios
         </button>
         
-        <div class="collapse" id="tablaUsuarios">
+        <div class="collapse show" id="tablaUsuarios">
             <form>
                 <!--? el style-->
                 <!--Tabla con los usuarios-->
@@ -203,7 +203,7 @@
         </button>
 
         <!--Tabla con publicaciones-->
-        <div class="collapse" id="tablaPublicaciones">
+        <div class="collapse show" id="tablaPublicaciones">
             <form>
                 <!--? style debe ir en css-->
                 <div class="table-responsive border border-dark" style="height: 500px;">
