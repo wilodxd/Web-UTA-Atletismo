@@ -30,4 +30,6 @@ Route::get( '/cambiar-contrasena' , [Sesion::class, 'cambiarContrasena']);
 
 Route::get( '/perfil' , [Perfil::class, 'index']);
 
-Route::post( '/administracion' , [Administracion::class, 'index'] );
+Route::get( '/administracion' , [Administracion::class, 'index'] );
+Route::match( array('GET','POST'), '/administracion/usuario' , [Administracion::class, 'usuario'] );
+Route::match( array('GET','POST'), '/administracion/publicacion' , [Administracion::class, 'publicacion'] );
