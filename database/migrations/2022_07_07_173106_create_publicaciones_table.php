@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('titulo', 100);
             $table->longText('contenido');
             $table->string('imagen', 100);
-            $table->string('rut_autor', 10);
+            $table->string('rut_autor', 12);
             $table->integer('actividad')->default(false);
             
             $table->timestamps();

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('usuarios', function (Blueprint $table) {
-            $table->string('rut', 10)->primary();
+            $table->string('rut', 12)->primary();
             $table->string('nombre', 50);
             $table->string('apellido_1', 50);
             $table->string('apellido_2', 50);
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('carrera', 50);
             $table->string('correo', 50)->unique();
             $table->string('contrasena', 255);
-            $table->integer('tipo_usuario')->default(1);
+            $table->integer('tipo_usuario')->default();
 
             $table->timestamps();
         });

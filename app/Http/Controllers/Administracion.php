@@ -44,8 +44,13 @@ class Administracion extends Controller
                         // Cambiar tipo de usuario a 1 (administrador)
                         if( array_key_exists('tipo_usuario', $datosUsuario) ){
                             $datosUsuario['tipo_usuario'] = 1;
+                        }else{
+                            $datosUsuario['tipo_usuario'] = 0;
                         }
 
+                        print('<pre>');
+                        print_r($datosUsuario['rut']);
+                        print('</pre>');
                         $usuario->update($datosUsuario);
                         break;
                     }

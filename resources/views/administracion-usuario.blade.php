@@ -43,7 +43,7 @@
                         @foreach( $usuarios as $usuario )
                             <tr>
                                 <th>{{$index}}</th>
-                                <td>{{$usuario->nombre . $usuario->apellido_1; }}</td>
+                                <td>{{$usuario->nombre . ' ' . $usuario->apellido_1 . ' ' . $usuario->apellido_2 }}</td>
                                 <td>{{$usuario->rut}}</td>
                                 <td>{{$usuario->carrera}}</td>
                                 <td class="row">
