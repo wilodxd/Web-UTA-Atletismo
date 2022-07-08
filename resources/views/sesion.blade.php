@@ -6,10 +6,10 @@
 
     <form class="formulario" method="POST">
         @csrf
-        <input type="text" name="rut">
+        <!-- <input type="text" name="rut">
         <input type="password" name="password">
-        <input type="submit" value="Iniciar sesión" class="btn btn-primary">
-        <!--
+        <input type="submit" value="Iniciar sesión" class="btn btn-primary"> -->
+        
         <h2>Iniciar Sesion</h2>
 
         <div class="campo">
@@ -23,7 +23,7 @@
         <input type="submit" value="Iniciar sesión" class="btn btn-primary">
 
         <a href="/contrasena-olvidada" class="enlace-cambiar-contrasena">¿Has olvidado la contraseña?</a>
-        -->
+       
     </form>
 
 </main>
