@@ -40,7 +40,9 @@
 
                                 <h3 class="publicacion__titulo publicacion__titulo--mini">{{$publicacion->titulo}}</h3>
 
-                                <p class="publicacion__resumen publicacion__resumen--mini">{{$publicacion->contenido}}</p>                        
+                                <p class="publicacion__resumen publicacion__resumen--mini">
+                                    {{ (strlen( $publicacion->contenido ) > 60) ? substr($publicacion->contenido,0,60) . '...' : $publicacion->contenido,0,60 }}
+                                </p>                        
 
                                 <div class="publicacion__meta publicacion__meta--mini">
                                     <p class="publicacion__escritor publicacion__escritor--mini">Escrito por: <span><?php
