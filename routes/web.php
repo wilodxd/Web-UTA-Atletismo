@@ -40,8 +40,12 @@ Route::post('sesion', function(){
     $credentials = request()->only('rut', 'password');
 
     if(Auth::attempt($credentials)){
-        return 'funciona';
+        request()->session()->regenerate();
+        return redirect('/');
     } else{
         return 'no funciona';
     }
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

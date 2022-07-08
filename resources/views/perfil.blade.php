@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-
+<pre>{{Auth::user()}}</pre>
 <main class="seccion-perfil">
     <section class="py-5">        
         <div class="container-fluid">
