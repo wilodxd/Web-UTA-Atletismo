@@ -7,16 +7,37 @@ use App\Models\Usuario;
 use App\Models\Publicacion;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
+use function PHPUnit\Framework\isNull;
 
 class Administracion extends Controller
 {
     
+    protected function comprobarPermisosAdministrador(){
+        // Comprobar si esta logeado y el usuario tiene permisos de administrador
+        if(Auth::check()){
+            $tipo_usuario = Auth::user()->tipo_usuario;
+            if($tipo_usuario == 1){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function index(Request $request){
+
+        // Comprobar si tiene permisos para acceder a esta pagina
+        if(!Administracion::comprobarPermisosAdministrador() ){ return redirect('/'); } // Redirigir a inicio
+
         return redirect('/administracion/usuario');        
     }
 
     public function usuario(Request $request){
         
+        // Comprobar si tiene permisos para acceder a esta pagina
+        if(!Administracion::comprobarPermisosAdministrador() ){ return redirect('/'); } // Redirigir a inicio
+
         switch ($request->method()) {
             case 'POST':
                                 
@@ -88,6 +109,9 @@ class Administracion extends Controller
     }
 
     public function publicacion(Request $request){
+
+        // Comprobar si tiene permisos para acceder a esta pagina
+        if(!Administracion::comprobarPermisosAdministrador() ){ return redirect('/'); } // Redirigir a inicio
 
         switch ($request->method()) {
             case 'POST':
@@ -165,8 +189,10 @@ class Administracion extends Controller
         
         // Obtener todas las publicaciones
         $datos['publicaciones'] = Publicacion::all();
-
+        
         return view('administracion-publicacion',$datos);
     }
     
+    
+
 }

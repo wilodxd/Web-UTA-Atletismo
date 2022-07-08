@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('carrera', 50);
             $table->string('correo', 50)->unique();
             $table->string('contrasena', 255);
-            $table->integer('tipo_usuario')->default();
+            $table->integer('tipo_usuario')->default(0);
 
             $table->timestamps();
         });

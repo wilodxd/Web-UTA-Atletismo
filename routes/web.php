@@ -24,7 +24,7 @@ Route::get('/', [Inicio::class, 'index']);
 
 Route::get( '/publicacion/{id}' , [Publicaciones::class, 'index']);
 
-Route::view( '/sesion' , 'sesion');
+Route::match( array('GET','POST'), '/sesion' , [Sesion::class, 'index']);
 
 Route::get( '/contrasena-olvidada' , [Sesion::class, 'contrasenaOlvidada']);
 
@@ -38,17 +38,18 @@ Route::match( array('GET','POST'), '/administracion/usuario' , [Administracion::
 
 Route::match( array('GET','POST'), '/administracion/publicacion' , [Administracion::class, 'publicacion'] );
 
-Route::post('sesion', function(){
+// Route::post('sesion', function(){
     
-    $credentials = request()->only('rut', 'password');
+//     $credentials = request()->only('rut', 'password');
 
-    if(Auth::attempt($credentials)){
-        request()->session()->regenerate();
-        return redirect('/');
-    } else{
-        return 'no funciona';
-    }
-});
+//     if(Auth::attempt($credentials)){
+//         request()->session()->regenerate();
+//         return redirect('/');
+//     } else{
+//         return 'no funciona';
+//     }
+// });
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

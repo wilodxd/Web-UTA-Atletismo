@@ -26,13 +26,15 @@
             <nav class="navegacion">
                 <a href="/" class="navegacion__link">Inicio</a>
                 <!-- <a href="#" class="navegacion__link">Nosotros</a> -->
-                @auth
-                <a href="/perfil" class="navegacion__link">Perfil</a>
-                <a href="/administracion" class="navegacion__link navegacion__link--secundario">Administracion</a>
-                <a href="/logout" class="navegacion__link navegacion__link--primario">Cerrar sesion</a>
+                @if (Auth::check())
+                    <a href="/perfil" class="navegacion__link">Perfil</a>
+                    @if(Auth::user()->tipo_usuario == 1)
+                        <a href="/administracion" class="navegacion__link navegacion__link--secundario">Administracion</a>
+                    @endif
+                    <a href="/logout" class="navegacion__link navegacion__link--primario">Cerrar sesion</a>
                 @else
-                <a href="/sesion" class="navegacion__link navegacion__link--primario">Ingresar</a>
-                @endauth
+                    <a href="/sesion" class="navegacion__link navegacion__link--primario">Ingresar</a>
+                @endif
             </nav>
         </div>
     </header>

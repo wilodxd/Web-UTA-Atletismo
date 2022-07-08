@@ -1,7 +1,8 @@
 @extends('layout')
 
 @section('content')
-<pre>{{Auth::user()}}</pre>
+
+
 <main class="seccion-perfil">
     <section class="py-5">        
         <div class="container-fluid">
@@ -17,13 +18,14 @@
                         <div class="card flex-row flex-wrap flex-md-nowrap align-items-center border border-dark" style="min-height: 300px;">
                             <div class="card-header border-0 ">
                                 <img src="img/1-usain-bolt-medallas.jpg" alt="imagen_usuario" class="img-fluid img-responsive">
-                                <h2 class="card-title">Nombre Apellido</h2>
+                                <!-- mostrara el nombre completo -->
+                                <h2 class="card-title">{{Auth::user()->nombre}} {{Auth::user()->apellido_1}} {{Auth::user()->apellido_2}}</h2>
                             </div>
                             <div class="card-block px-2 ">                                
-                                <p>Rut: 11.111.111-1</p>
-                                <p>Carrera: Ingenieria civil en computacion e informatica</p>
-                                <p>Numero de contacto: 56 9 111111</p>
-                                <p>Correo electronico: correoejemplo@gmail.com</p>
+                                <p>Rut: {{Auth::user()->rut}}</p>
+                                <p>Carrera: {{Auth::user()->carrera}}</p>
+                                <!-- <p>Numero de contacto: 56 9 111111</p> -->
+                                <p>Correo electronico: {{Auth::user()->correo}}</p>
                             </div>                            
                         </div>
                     </div>                

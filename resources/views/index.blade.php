@@ -1,9 +1,6 @@
 @extends('layout')
 
 @section('content')
-<pre>{{Auth::user()}}</pre>
-
-
 
 <div class="seccion-principal-contenedor">
 
