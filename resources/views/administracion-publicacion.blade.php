@@ -90,6 +90,9 @@
 
                                 @csrf
 
+                                <!-- se agrega el rut del usuario autenticado -->
+                                <input type="hidden" name="rut_autor" value="{{Auth::user()->rut}}">
+
                                 <div class="form-row mb-3">
                                     <label for="formControlInput1" class="col-form-label col-12 col-md-3">Título</label>
                                     <div class="col">
@@ -154,6 +157,9 @@
                             <div class="modal-body">
                             
                                 @csrf
+
+                                <!-- se agrega el rut del usuario autenticado -->
+                                <input type="hidden" name="rut_autor" value="{{Auth::user()->rut}}">
 
                                 <div class="form-row mb-3">
                                     <label for="modificar-titulo" class="col-form-label col-12 col-md-3">Título</label>

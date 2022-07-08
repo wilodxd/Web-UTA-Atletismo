@@ -28,7 +28,7 @@
                             <p class="publicacion__resumen">{{$publicacion->contenido}}</p>                        
 
                             <div class="publicacion__meta">
-                                <p class="publicacion__escritor">autor: <span>
+                                <p class="publicacion__escritor">Autor: <span>
                                    <?php
                                     
                                         $encontrado = false;
