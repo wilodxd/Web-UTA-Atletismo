@@ -25,7 +25,7 @@
 
                             <h3 class="publicacion__titulo">{{$publicacion->titulo}}</h3>
 
-                            <p class="publicacion__resumen">{{$publicacion->contenido}}</p>                        
+                            <p class="publicacion__resumen">{{ (strlen( $publicacion->contenido ) > 60) ? substr($publicacion->contenido,0,60) . '...' : $publicacion->contenido,0,60 }}</p>                        
 
                             <div class="publicacion__meta">
                                 <p class="publicacion__escritor">Autor: <span>
