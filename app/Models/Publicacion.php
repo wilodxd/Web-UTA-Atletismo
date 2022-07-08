@@ -8,13 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Publicacion extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'titulo',
         'contenido',
         'imagen',
         'rut_autor',
-        'actividad'
+        'actividad',
+        'created_at'
     ];
+
+    protected $table = 'publicaciones';
+    public $timestamps = true;
 
 }

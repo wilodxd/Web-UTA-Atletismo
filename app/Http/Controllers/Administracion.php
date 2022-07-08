@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Publicacion;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class Administracion extends Controller
 {
@@ -14,6 +16,7 @@ class Administracion extends Controller
     }
 
     public function usuario(Request $request){
+        
         switch ($request->method()) {
             case 'POST':
                                 
@@ -23,13 +26,16 @@ class Administracion extends Controller
                         
                         // 
                         $datosUsuario = $request->except(['_token', 'transaccion']);
-
+                        
                         // Cambiar tipo de usuario a 1 (administrador)
                         if( array_key_exists('tipo_usuario', $datosUsuario) ){
                             $datosUsuario['tipo_usuario'] = 1;
                         }
 
                         $datosUsuario['contrasena'] = password_hash('123456', PASSWORD_DEFAULT);
+                        
+                        // Agregar fecha de creacion
+                        $datosUsuario['created_at'] = Carbon::now();
 
                         Usuario::insert($datosUsuario);
                         
@@ -76,25 +82,91 @@ class Administracion extends Controller
         // Obtener todos los usuarios
         $datos['usuarios'] = Usuario::all();
 
+
+
         return view('administracion-usuario', $datos);
     }
 
     public function publicacion(Request $request){
-        // switch ($request->method()) {
-        //     case 'POST':
-        //         // print 'POST';
-                
 
-        //         break;
-        //     case 'GET':
-        //         // 
-        //         break;
-        //     default:
-        //         //invalido
-        //         break;
-        // }
+        switch ($request->method()) {
+            case 'POST':
+                //
+
+                switch($request->input('transaccion')){
+
+                    case 'crear':{
+                        
+                        // 
+                        $datosPublicacion = $request->except(['_token', 'transaccion']);
+                        
+                        // Cambiar tipo de usuario a 1 (administrador)
+                        if( array_key_exists('actividad', $datosPublicacion) ){
+                            $datosPublicacion['actividad'] = 1;
+                        }
+
+                        if($request->hasFile('imagen')){
+                            $datosPublicacion['imagen'] = $request->file('imagen')->store('uploads', 'public');
+                        }
+                        
+                        // Agregar fecha de creacion
+                        $datosPublicacion['created_at'] = Carbon::now();
+
+                        Publicacion::insert($datosPublicacion);
+                        
+                        break;
+                    }
+
+                    case 'modificar':{
+                        
+                        $datosPublicacion = $request->except(['_token', 'transaccion']);
+                        $publicacion = Publicacion::find($datosPublicacion['id']);
+
+                        // Cambiar tipo de publicacion a 1 (administrador)
+                        if( array_key_exists('actividad', $datosPublicacion) ){
+                            $datosPublicacion['actividad'] = 1;
+                        }else{
+                            $datosPublicacion['actividad'] = 0;
+                        }
+
+                        if($request->hasFile('imagen')){
+                            
+                            // Eliminar imagen anterior
+                            Storage::delete( 'public/' . $publicacion->imagen);
+
+                            $datosPublicacion['imagen'] = $request->file('imagen')->store('uploads', 'public');
+
+                        }
+
+                        $publicacion->update($datosPublicacion);
+                        break;
+                    }
+
+                    case 'eliminar':{
+                        $id = $request->input('id');
+                        $publicacion = Publicacion::find($id);
+                        // eliminar imagen
+                        Storage::delete( 'public/' . $publicacion->imagen);
+
+                        $publicacion->delete();
+                        break;
+                    }
+
+                }
+
+                break;
+            case 'GET':
+                // 
+                break;
+            default:
+                //invalido
+                break;
+        }
         
-        return view('administracion-publicacion');
+        // Obtener todas las publicaciones
+        $datos['publicaciones'] = Publicacion::all();
+
+        return view('administracion-publicacion',$datos);
     }
     
 }

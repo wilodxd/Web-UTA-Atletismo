@@ -23,7 +23,6 @@
         
         
         <div>
-            <!--? el style-->
             <!--Tabla con los usuarios-->
             <div class="table-responsive border border-dark" style="height: 500px;">
                 <table class="table">
@@ -245,7 +244,7 @@
                     <div class="modal-content">
 
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres eliminar a este usuario?</h5>
+                            <h2 class="modal-title" id="exampleModalLabel">¿Seguro que quieres eliminar a este usuario?</h2>
                             <button type="button" class="close" data-dismiss="modal">
                             <span>&times;</span>
                             </button>
@@ -253,10 +252,11 @@
                         
                         <!--Aqui va la información del usuario-->
                         <form method="POST">
+                            @csrf
                             <div class="modal-body">
                                 <p id="eliminar-texto-nombre"></p>
                                 <p>Rut: <span id="eliminar-texto-rut"></span></p>
-                                @csrf
+                                
                                 <input type="hidden" id="eliminar-rut" name="rut" value="">
                                 <input type="hidden" name="transaccion" value="eliminar">
                             </div>

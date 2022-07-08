@@ -43,14 +43,9 @@ Route::post('sesion', function(){
     $credentials = request()->only('rut', 'password');
 
     if(Auth::attempt($credentials)){
-        request()->session()->regenerate();
-        return redirect('/');
+        return 'funciona';
     } else{
         return 'no funciona';
     }
+
 });
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logout');

@@ -12,6 +12,7 @@ class Usuario extends Authenticatable
 
     public $incrementing = false;
     protected $primaryKey = 'rut';
+    public $timestamps = true;
     
     protected $fillable = [
         'rut',
@@ -23,7 +24,8 @@ class Usuario extends Authenticatable
         'carrera',
         'correo',
         'contrasena',
-        'tipo_usuario'
+        'tipo_usuario',
+        'created_at'
     ];
     
     public function getAuthPassword()
