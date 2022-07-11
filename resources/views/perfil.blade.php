@@ -241,9 +241,9 @@
                     </button>
                     <div class="row collapse show border border-dark p-5 m-2" id="resumenDia" style="min-height: 300px;">
                         <div class="col-12 col-md-6 border border-dark">
-                            <p>Distancia total: 9 km</p>
-                            <p>Velocidad promedio: 3 m/s</p>
-                            <p>Mejor velocidad: 5 m/s (9:30)</p>                              
+                            <p>Distancia total: <span id="resumen-diario-distancia">9</span> metros</p>
+                            <p>Velocidad promedio: <span id="resumen-diario-velocidad">9</span> m/s</p>
+                            <p>Mejor velocidad: <span id="resumen-diario-mejor-velocidad">9</span> m/s (<span id="resumen-diario-mejor-velocidad-hora">9</span>)</p>                              
                         </div>
                         <div class="grafico col-12 col-md-6">
                             <canvas id="grafico1" width="20px" height="20px"></canvas>
@@ -297,16 +297,126 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js"></script>
 
+<!-- progresos -->
 <script>
+
+     // formato fechaHora = 2022-07-11 17:20:00
+     function fechaToDate(fechaHora){
+        var fecha = new Date(fechaHora);
+        return fecha;
+    }
+
+    
+
+    // Crear objeto progreso
+    function Progreso(id, fecha, distancia, tiempo, comentario) {
+        this.id = id;
+        this.fecha = fechaToDate(fecha);
+        this.tiempo = tiempo;
+        this.distancia = distancia;
+        this.comentario = comentario;
+        this.velocidad = Math.round((parseFloat(distancia) / parseFloat(tiempo))*10)/10;
+        console.log(distancia+'/'+tiempo+'='+this.velocidad);
+        return this;
+    }
+
+    // Lista de progreso
+    var progresos = [];
+
+    // Agregar progreso
+    <?php
+        foreach ($progresos as $progreso) {
+            echo "progresos.push(new Progreso(".$progreso->id.", '".$progreso->created_at."', ".$progreso->distancia.", '".$progreso->tiempo.", ".$progreso->comentario."'));";
+        }
+    ?>
+
+    // Crear lista con progresos de una fecha
+    function getProgresosFecha(fecha){
+        
+        var progresosFecha = [];
+        for (var i = 0; i < progresos.length; i++) {
+            if (progresos[i].fecha.getDate() == fecha.getDate() && progresos[i].fecha.getMonth() == fecha.getMonth() && progresos[i].fecha.getFullYear() == fecha.getFullYear()) {
+                progresosFecha.push(progresos[i]);
+            }
+        }
+        return progresosFecha;
+    }  
+
+    // Crear lista con progresos por rango de fechas
+    function getProgresosRango(fechaInicio, fechaFin){
+        var progresosRango = [];
+        for (var i = 0; i < progresos.length; i++) {
+            if (progresos[i].fecha.getDate() >= fechaInicio.getDate() && progresos[i].fecha.getMonth() >= fechaInicio.getMonth() && progresos[i].fecha.getFullYear() >= fechaInicio.getFullYear() && progresos[i].fecha.getDate() <= fechaFin.getDate() && progresos[i].fecha.getMonth() <= fechaFin.getMonth() && progresos[i].fecha.getFullYear() <= fechaFin.getFullYear()) {
+                progresosRango.push(progresos[i]);
+            }
+        }
+        return progresosRango;
+    }
+
+</script>
+
+<script>
+    // Resumen del día
+    
+    // fecha actual
+    var fechaActualObj = new Date();
+    var fechaActual = fechaActualObj.getFullYear() + "-" + (fechaActualObj.getMonth() + 1) + "-" + fechaActualObj.getDate();
+
+    // lista progresos del día
+    var listaProgresosDia = getProgresosFecha(fechaActualObj);
+
+    // datos grafico
+    graficoVelocidad_label = []
+    graficoVelocidad_data = []
+
+    // resumen del dia
+    resumenDia_distanciaTotal = 0;
+    resumenDia_velocidadPromedioSuma = 0;
+    resumenDia_velocidadPromedio = 0;
+    resumenDia_numeroRegistros = 0;
+    
+    resumenDia_Progreso_mejorVelocidad = progresos[0];
+
+
+    // 
+    listaProgresosDia.forEach(progreso => {
+        hora = progreso.fecha.getHours() + ':' + progreso.fecha.getMinutes();
+        graficoVelocidad_label.push(hora);
+        graficoVelocidad_data.push(progreso.velocidad);
+        resumenDia_distanciaTotal+=progreso.distancia;
+        resumenDia_velocidadPromedioSuma+=progreso.velocidad;
+        resumenDia_numeroRegistros++;
+        if( progreso.velocidad > resumenDia_Progreso_mejorVelocidad.velocidad ){
+            resumenDia_Progreso_mejorVelocidad = progreso;
+        }
+    });
+
+    // calcular promedio
+    resumenDia_velocidadPromedio = Math.round(resumenDia_velocidadPromedioSuma/resumenDia_numeroRegistros*100)/100;
+
+    
+    // actualizar datos diarios
+    function actualizarResumenDiario(){
+        document.getElementById('resumen-diario-distancia').textContent = resumenDia_distanciaTotal;
+        document.getElementById('resumen-diario-velocidad').textContent = resumenDia_velocidadPromedio;
+        document.getElementById('resumen-diario-mejor-velocidad').textContent = resumenDia_Progreso_mejorVelocidad.velocidad;
+        var hora = resumenDia_Progreso_mejorVelocidad.fecha.getHours() + '-' + resumenDia_Progreso_mejorVelocidad.fecha.getMinutes();
+        document.getElementById('resumen-diario-mejor-velocidad-hora').textContent = hora;
+    }
+    actualizarResumenDiario();
+
+
+
+    // Grafico de velocidad
     let ctx = document.getElementById('grafico1').getContext('2d');
     const myChart = new Chart(ctx, {
 
         type: 'line',
         data: {
-            labels: ['16:20', '16:22', '16:24', '16:25', '16:26', '16:28'],
+            labels: graficoVelocidad_label,
             datasets: [{
                 label: 'Velocidad en m/s',
-                data: [3, 5, 3.8, 2.5, 4, 2.1],
+                data: graficoVelocidad_data,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -386,7 +496,7 @@
                 }
             }
         }
-        });
+    });
     
     ctx = document.getElementById('grafico3').getContext('2d');
     const myChart3 = new Chart(ctx, {
@@ -431,7 +541,7 @@
                 }
             }
         }
-        });
+    });
     
     ctx = document.getElementById('grafico4').getContext('2d');
     const myChart4 = new Chart(ctx, {
@@ -476,7 +586,7 @@
                 }
             }
         }
-        });
+    });
     
     ctx = document.getElementById('grafico5').getContext('2d');
     const myChart5 = new Chart(ctx, {
@@ -521,7 +631,10 @@
                 }
             }
         }
-        });
+    });
+
+
+
 
 </script>
 
