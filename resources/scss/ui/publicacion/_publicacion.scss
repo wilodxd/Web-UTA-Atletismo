@@ -1,0 +1,57 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.contenedor-contenido{
+    
+    margin: 0 2rem;
+
+    @include m.desktop { 
+        display: grid;
+        grid-template-columns: repeat(4,1fr);    
+    }
+}
+
+.publicacion-completa{
+    
+    grid-column: 2/4;
+    margin: 0 auto;
+    max-width: 90rem;
+    display: flex;
+    flex-direction: column;
+
+    @include m.tablet { 
+        padding: 2rem 5rem;
+    }
+
+    
+
+    h2 {
+        margin: 2rem 0;
+    }
+    
+    img {
+        margin: 0 auto;
+        width: 100%;
+        max-height: 40rem;
+    }
+
+
+}
+
+.lateral-contenedor{
+    // display: none;
+    padding: 4rem 0;
+
+    @include m.desktop { 
+        display: block;
+    }
+
+
+    aside {
+        display: none;
+        @include m.desktop { 
+            display:block;
+        }
+    }
+
+}

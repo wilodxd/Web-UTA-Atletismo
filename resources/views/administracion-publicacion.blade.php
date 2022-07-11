@@ -25,7 +25,7 @@
             <div class="table-responsive border border-dark" style="height: 500px;">
                 <table class="table">
                     <thead class="thead-dark">
-                        <tr>
+                        <tr class="tr-publicaciones">
                             <th scope="col">#</th>
                             <th scope="col">Imagen</th>
                             <th scope="col">Titulo</th>                                            
@@ -37,7 +37,7 @@
                         
                         @foreach($publicaciones as $publicacion)
 
-                            <tr>
+                            <tr class="tr-publicaciones">
 
                                 <th>{{$publicacion->id}}</th>
                                 <td>
@@ -205,6 +205,7 @@
                     </div>
                 </div>
             </form>
+            
             <!-- Eliminar publicacion -->
             <div class="modal fade" id="eliminarPublicacion">
                 <div class="modal-dialog">

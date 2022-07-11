@@ -18,10 +18,16 @@
     <div class="lateral-contenedor">
 
         @if($publicacionActual->actividad == 1)
-            <div class="actividad">
+            
+            <form class="actividad" action="/actividad">
                 <p class="actividad__texto">¿Desea inscribirse a esta actividad?</p>
-                <button type="button" class="btn btn-primary actividad__boton">Inscribirse</button>
-            </div>
+                <input type="hidden" name="id_publicacion" value="{{$publicacionActual->id}}">
+                @if($inscrito)
+                    <button type="submit" class="btn btn-secondary actividad__boton">Inscrito</button>
+                @else
+                    <button type="submit" class="btn btn-primary actividad__boton">Inscribirse</button>
+                @endif
+            </form>
         @endif
 
 

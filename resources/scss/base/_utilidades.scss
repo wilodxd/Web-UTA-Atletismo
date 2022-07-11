@@ -1,0 +1,74 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.btn {
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    padding: 1rem !important;
+    width: 100% !important;
+    margin: 1rem 0 !important;
+    border-radius: 1rem !important;
+
+}
+
+.btn-primary{
+    background-color:v.$primario !important;
+    border-color: v.$primario !important;
+}
+
+.btn-light {
+    background-color: lighten(v.$grisClaro,8%) !important;
+    border-color: lighten(v.$grisClaro,5%) !important;
+}
+
+.btn-responsive{
+
+    margin-left: auto !important;
+    margin-right: 1rem !important;
+    width: 100% !important;
+    
+    @include m.tablet { 
+        width: 20rem !important;
+    }
+    
+}
+
+.btn-mini{
+    
+    width: 20rem !important;
+    
+}
+
+// Card
+.card-title {
+    font-size: 3rem !important;
+    text-align: center;
+    padding-top: 1rem !important;
+
+    @include m.tablet { 
+        font-size: 2.3rem !important;
+    }
+}
+
+
+// img
+.img-responsive {
+    min-height: 20rem !important;
+    object-fit: cover;
+}
+
+// modals
+.modal-header {
+    
+
+    .modal-title {
+        font-size: 2.5rem !important;
+    }
+
+    .close {
+        font-size: 4rem !important;
+    }
+
+}
+
+

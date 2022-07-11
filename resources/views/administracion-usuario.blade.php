@@ -27,8 +27,9 @@
             <div class="table-responsive border border-dark" style="height: 500px;">
                 <table class="table">
                     <thead class="thead-dark">
-                        <tr>
+                        <tr class="tr-usuarios">
                             <th scope="col">#</th>
+                            <th scopre="col">Imagen</th>
                             <th scope="col">Nombre Completo</th>                                            
                             <th scope="col">Rut</th>
                             <th scope="col">Carrera</th>
@@ -40,8 +41,11 @@
                         @php $index = 1; @endphp
 
                         @foreach( $usuarios as $usuario )
-                            <tr>
+                            <tr class="tr-usuarios">
                                 <th>{{$index}}</th>
+                                <td>
+                                    <img src="{{ asset('storage/' . $usuario->imagen) }}" alt="{{$usuario->nombre_completo}}" class="img-fluid" style="max-width: 120px; max-height: 70px;">
+                                </td>
                                 <td>{{$usuario->nombre . ' ' . $usuario->apellido_1 . ' ' . $usuario->apellido_2 }}</td>
                                 <td>{{$usuario->rut}}</td>
                                 <td>{{$usuario->carrera}}</td>
@@ -90,6 +94,16 @@
                             <div class="modal-body">
                         
                                 @csrf
+
+                                
+                                <div class="form-group">
+                                    <label for="imagen">Foto de perfil</label>
+
+                                    <img id="imgAgregar" alt="foto perfil usuario" hidden style="max-width: 200px;max-height: 200px; margin: 0 auto;margin-bottom:2rem">
+
+                                    <input type="file" class="form-control-file" id="imagen" name="imagen" accept=".png, .jpeg" onchange="loadFile(event,'imgAgregar')">
+                                    
+                                </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label" for="nombre">Nombre:</label>
@@ -173,6 +187,15 @@
                             <div class="modal-body">
                         
                                     @csrf
+
+                                    <div class="form-group">
+                                        <label for="imagen">Foto de perfil</label>
+
+                                        <img id="imgModificar" alt="foto perfil usuario" style="max-width: 200px;max-height: 200px; margin: 0 auto;margin-bottom:2rem">
+
+                                        <input type="file" class="form-control-file" id="modificar-imagen" name="imagen" accept=".png, .jpeg" onchange="loadFile(event,'imgModificar')">
+                                        
+                                    </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label" for="modificar-nombre">Nombre:</label>
@@ -278,10 +301,18 @@
 
 </main>
 
+<script>
+    var loadFile = function(event, idImagen) {
+        var image = document.getElementById(idImagen);
+        image.src = URL.createObjectURL(event.target.files[0]);
+        image.hidden = false;
+    };
+</script>
+
 <script type="text/javascript">
 
     // crear usuario
-    function Usuario(rut,nombre,apellido_1,apellido_2,fecha_nacimiento,fecha_ingreso,carrera,correo,tipo_usuario){
+    function Usuario(rut,nombre,apellido_1,apellido_2,fecha_nacimiento,fecha_ingreso,carrera,imagen,correo,tipo_usuario){
         this.rut = rut;
         this.nombre = nombre;
         this.apellido_1 = apellido_1;
@@ -291,6 +322,7 @@
         this.carrera = carrera;
         this.correo = correo;
         this.tipo_usuario = tipo_usuario;
+        this.imagen = imagen;
         return this;
     }
 
@@ -299,7 +331,7 @@
     // almacena todos los usuarios en un array
     <?php
         foreach($usuarios as $usuario){
-            echo "listaUsuario.push(new Usuario('".$usuario->rut."','".$usuario->nombre."','".$usuario->apellido_1."','".$usuario->apellido_2."','".$usuario->fecha_nacimiento."','".$usuario->fecha_ingreso."','".$usuario->carrera."','".$usuario->correo."','".$usuario->tipo_usuario. "'));" ;
+            echo "listaUsuario.push(new Usuario('".$usuario->rut."','".$usuario->nombre."','".$usuario->apellido_1."','".$usuario->apellido_2."','".$usuario->fecha_nacimiento."','".$usuario->fecha_ingreso."','".$usuario->carrera."','".$usuario->imagen."','".$usuario->correo."','".$usuario->tipo_usuario. "'));" ;
         }
     ?>
 
@@ -319,6 +351,8 @@
 
     function rellenarFormularioModificarUsuario(rut){
         var usuario = buscarUsuario(rut);
+
+        // rellena los campos con los datos del usuario
         document.getElementById("modificar-rut").value = usuario.rut;
         document.getElementById("modificar-nombre").value = usuario.nombre;
         document.getElementById("modificar-apellido_1").value = usuario.apellido_1;
@@ -333,6 +367,10 @@
         else{
             document.getElementById("modificar-tipo_usuario").checked = false;
         }
+
+        document.getElementById("imgModificar").src = '<?php echo asset('storage').'/' ?>' + usuario.imagen;
+        
+
     }
 
 </script>

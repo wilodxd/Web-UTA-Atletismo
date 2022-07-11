@@ -1,0 +1,20 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.seccion-perfil{
+    min-height: 70vh;
+}
+
+.form-group-time{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.form-group--horizontal{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}

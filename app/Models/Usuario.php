@@ -25,6 +25,7 @@ class Usuario extends Authenticatable
         'correo',
         'contrasena',
         'tipo_usuario',
+        'imagen',
         'created_at'
     ];
     

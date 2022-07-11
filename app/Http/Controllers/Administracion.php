@@ -9,13 +9,12 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-use function PHPUnit\Framework\isNull;
-
 class Administracion extends Controller
 {
     
     protected function comprobarPermisosAdministrador(){
         // Comprobar si esta logeado y el usuario tiene permisos de administrador
+        
         if(Auth::check()){
             $tipo_usuario = Auth::user()->tipo_usuario;
             if($tipo_usuario == 1){
@@ -58,6 +57,13 @@ class Administracion extends Controller
                         // Agregar fecha de creacion
                         $datosUsuario['created_at'] = Carbon::now();
 
+                        // 
+                        if($request->hasFile('imagen')){
+                            $datosUsuario['imagen'] = $request->file('imagen')->store('uploads', 'public');
+                        }else{
+                            $datosUsuario['imagen'] = 'default.jpg';
+                        }
+
                         Usuario::insert($datosUsuario);
                         
                         break;
@@ -75,6 +81,15 @@ class Administracion extends Controller
                             $datosUsuario['tipo_usuario'] = 0;
                         }
 
+                        if($request->hasFile('imagen')){
+                            
+                            // Eliminar imagen anterior
+                            Storage::delete( 'public/' . $usuario->imagen);
+
+                            $datosUsuario['imagen'] = $request->file('imagen')->store('uploads', 'public');
+
+                        }
+
                         print('<pre>');
                         print_r($datosUsuario['rut']);
                         print('</pre>');
@@ -85,6 +100,9 @@ class Administracion extends Controller
                     case 'eliminar':{
                         $rut = $request->input('rut');
                         $usuario = Usuario::find($rut);
+                        // Eliminar imagen
+                        Storage::delete( 'public/' . $usuario->imagen);
+
                         $usuario->delete();
                         break;
                     }
@@ -131,6 +149,8 @@ class Administracion extends Controller
 
                         if($request->hasFile('imagen')){
                             $datosPublicacion['imagen'] = $request->file('imagen')->store('uploads', 'public');
+                        }else{
+                            $datosPublicacion['imagen'] = 'default.jpg';
                         }
                         
                         // Agregar fecha de creacion

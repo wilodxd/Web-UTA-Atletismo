@@ -115,81 +115,113 @@
                         Progresos personales
                     </button>
                     
+                    <!-- Tabla progresos -->
                     <div class="collapse show" id="tablaProgresoPersonal">
-                        <form>
-                            <div class="table-responsive border border-dark" style="height: 300px;">
-                                <table class="table">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Fecha</th>                                            
-                                            <th scope="col">Tiempo</th>
-                                            <th scope="col">Distancia</th>
-                                            <th scope="col">Comentario</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>28/05/2022</td>                                            
-                                            <td>20 s</td>
-                                            <td>100 m</td>
-                                            <td>Fue un buen dia!!</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                
-                            </div>  
-
-                            <div class="btn-responsive">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Agregar</button>
-                            </div> 
+                        
+                        <div class="table-responsive border border-dark" style="height: 300px;">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Fecha</th>                                            
+                                        <th scope="col">Tiempo</th>
+                                        <th scope="col">Distancia</th>
+                                        <th scope="col">Comentario</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>28/05/2022</td>                                            
+                                        <td>20 s</td>
+                                        <td>100 m</td>
+                                        <td>Fue un buen dia!!</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                             
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Ingresar registro</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>                                                
-                                            <div class="form-group">
-                                                <label class="col-form-label">Fecha:</label>
-                                                <input type="date"/>
-                                            </div>                                                
-                                            <div class="form-group">
-                                                <label for="recipient-name" class="col-form-label">Tiempo:</label>
-                                                <input type="number" class="form-control" id="recipient-name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="recipient-name" class="col-form-label">Distancia:</label>
-                                                <input type="number" class="form-control" id="recipient-name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="message-text" class="col-form-label">Comentario:</label>
-                                                <textarea class="form-control" id="message-text"></textarea>
-                                            </div>                                                  
+                        </div>  
 
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary">Guardar</button>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </form>
+                        <div class="btn-responsive">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarProceso">Agregar</button>
+                        </div>
+
                     </div>
+
+                    <!-- Agregar nuevo progreso -->
+                    <form class="modal fade" id="agregarProceso">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Ingresar registro</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>                                                
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="fecha">Fecha:</label>
+                                        <input type="date" name="fecha" id="fecha">
+                                    </div>        
+
+                                    <div class="form-group">
+                                        <label for="horas">Tiempo:</label>                                        
+                                        <div class="form-group--horizontal">
+                                            
+                                            <div class="form-group form-group--horizontal">
+                                                <input type="number" class="form-control" id="horas" placeholder="0">
+                                                <label for="horas" class="col-form-label">H</label>
+                                            </div>
+                                            <div class="form-group form-group--horizontal">
+                                                <input type="number" class="form-control" id="minutos" placeholder="0">
+                                                <label for="minutos">M</label>
+                                            </div>
+                                            <div class="form-group form-group--horizontal">
+                                                <input type="number" class="form-control" id="segundos" placeholder="0">
+                                                <label for="segundos">S</label>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>   
+
+                                    <div class="form-group">
+                                        <label for="kilometros" class="col-form-label">Distancia:</label>
+                                        <div class="form-group--horizontal">
+                                            
+                                            <div class="form-group form-group--horizontal">
+                                                <input type="number" class="form-control" id="kilometros" placeholder="0">
+                                                <label for="kilometros" class="col-form-label">Km</label>
+                                            </div>
+                                            <div class="form-group form-group--horizontal">
+                                                <input type="number" class="form-control" id="metros" placeholder="0">
+                                                <label for="metros">m</label>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="comentario" class="col-form-label">Comentario:</label>
+                                        <textarea class="form-control" id="comentario"></textarea>
+                                    </div>                                                  
+
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary">Guardar</button>
+                            </div>
+                            </div>
+                        </div>
+                    
+                    </form>
                                                             
                 </div>
             </div>
         </div>   
     </section>
+
+    <!-- Graficos -->
     <section class="pb-5">
         <div class="container-fluid">
             <div class="row">
@@ -483,5 +515,24 @@
         });
 
 </script>
+
+<script>
+    function setFechaToday(){
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        if(dd<10) {
+            dd='0'+dd
+        } 
+        if(mm<10) {
+            mm='0'+mm
+        } 
+        today = yyyy+'-'+mm+'-'+dd;
+        document.getElementById("fecha").value = today;
+    }
+    setFechaToday();
+</script>
+
 
 @stop

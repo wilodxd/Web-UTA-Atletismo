@@ -38,17 +38,7 @@ Route::match( array('GET','POST'), '/administracion/usuario' , [Administracion::
 
 Route::match( array('GET','POST'), '/administracion/publicacion' , [Administracion::class, 'publicacion'] );
 
-// Route::post('sesion', function(){
-    
-//     $credentials = request()->only('rut', 'password');
-
-//     if(Auth::attempt($credentials)){
-//         request()->session()->regenerate();
-//         return redirect('/');
-//     } else{
-//         return 'no funciona';
-//     }
-// });
+Route::get( '/actividad' , [Publicaciones::class, 'inscribirse'] );
 
 Auth::routes();
 

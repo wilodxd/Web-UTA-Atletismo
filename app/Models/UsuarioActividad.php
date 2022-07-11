@@ -14,5 +14,6 @@ class UsuarioActividad extends Model
 
     protected $primaryKey = ['rut_usuario', 'id_publicacion'];
 
+    protected $table = 'usuarioactividad';
 
 }
