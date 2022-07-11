@@ -130,13 +130,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>28/05/2022</td>                                            
-                                        <td>20 s</td>
-                                        <td>100 m</td>
-                                        <td>Fue un buen dia!!</td>
-                                    </tr>
+                                    @foreach($progresos as $progreso)
+                                        <tr>
+                                            <th scope="row">{{$progreso->id}}</th>
+                                            <td>{{$progreso->created_at}}</td>                                            
+                                            <td>{{$progreso->tiempo}} s</td>
+                                            <td>{{$progreso->distancia}} m</td>
+                                            <td>{{$progreso->comentario}}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                             
@@ -149,36 +151,43 @@
                     </div>
 
                     <!-- Agregar nuevo progreso -->
-                    <form class="modal fade" id="agregarProceso">
+                    <form class="modal fade" id="agregarProceso" method="POST" action="/perfil/registrar-progreso">
+                        @csrf
                         <div class="modal-dialog">
                             <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Ingresar registro</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>                                                
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Ingresar registro</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                                    
+                                    
                                     <div class="form-group">
                                         <label class="col-form-label" for="fecha">Fecha:</label>
                                         <input type="date" name="fecha" id="fecha">
-                                    </div>        
+                                    </div>
 
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="hora">Hora:</label>
+                                        <input type="time" name="hora" id="hora">
+                                    </div>
+                                    
                                     <div class="form-group">
                                         <label for="horas">Tiempo:</label>                                        
                                         <div class="form-group--horizontal">
                                             
                                             <div class="form-group form-group--horizontal">
-                                                <input type="number" class="form-control" id="horas" placeholder="0">
+                                                <input type="number" class="form-control" id="horas" placeholder="0" name="horas">
                                                 <label for="horas" class="col-form-label">H</label>
                                             </div>
                                             <div class="form-group form-group--horizontal">
-                                                <input type="number" class="form-control" id="minutos" placeholder="0">
+                                                <input type="number" class="form-control" id="minutos" placeholder="0" name="minutos">
                                                 <label for="minutos">M</label>
                                             </div>
                                             <div class="form-group form-group--horizontal">
-                                                <input type="number" class="form-control" id="segundos" placeholder="0">
+                                                <input type="number" class="form-control" id="segundos" placeholder="0" step="0.01" name="segundos">
                                                 <label for="segundos">S</label>
                                             </div>
                                             
@@ -190,11 +199,11 @@
                                         <div class="form-group--horizontal">
                                             
                                             <div class="form-group form-group--horizontal">
-                                                <input type="number" class="form-control" id="kilometros" placeholder="0">
+                                                <input type="number" class="form-control" id="kilometros" placeholder="0" name="kilometros">
                                                 <label for="kilometros" class="col-form-label">Km</label>
                                             </div>
                                             <div class="form-group form-group--horizontal">
-                                                <input type="number" class="form-control" id="metros" placeholder="0">
+                                                <input type="number" class="form-control" id="metros" placeholder="0" name="metros">
                                                 <label for="metros">m</label>
                                             </div>
                                             
@@ -202,15 +211,15 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="comentario" class="col-form-label">Comentario:</label>
-                                        <textarea class="form-control" id="comentario"></textarea>
+                                        <textarea class="form-control" id="comentario" name="comentario"></textarea>
                                     </div>                                                  
 
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-primary">Guardar</button>
-                            </div>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                </div>
                             </div>
                         </div>
                     
@@ -532,6 +541,25 @@
         document.getElementById("fecha").value = today;
     }
     setFechaToday();
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+    function setTimeActually(){
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        m = checkTime(m);
+        document.getElementById("hora").value = h+":"+m;
+    }
+    
+    setTimeActually();
+
+
 </script>
 
 

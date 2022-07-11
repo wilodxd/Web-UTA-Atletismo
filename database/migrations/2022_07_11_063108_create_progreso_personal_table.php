@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('progresopersonal', function (Blueprint $table) {
             $table->id();
             $table->string('rut_usuario', 12)->foreign('rut_usuario')->references('rut')->on('usuarios');
-            $table->integer('tiempo')->default(0);
-            $table->integer('distancia')->default(0);
-            $table->longText('comentarios')->nullable();
+            $table->float('tiempo')->default(0);
+            $table->float('distancia')->default(0);
+            $table->longText('comentario')->nullable();
             $table->timestamps();
         });
     }
