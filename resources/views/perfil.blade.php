@@ -316,7 +316,6 @@
         this.distancia = distancia;
         this.comentario = comentario;
         this.velocidad = Math.round((parseFloat(distancia) / parseFloat(tiempo))*10)/10;
-        console.log(distancia+'/'+tiempo+'='+this.velocidad);
         return this;
     }
 
@@ -351,6 +350,20 @@
             }
         }
         return progresosRango;
+    }
+
+    // obtener fecha de inicio y termino de la semana, retorna un arreglo con dos fechas, la primera es el lunes y la segunda es el domingo de la semana
+    function getFechaSemana(fecha){
+        var fechaInicio = new Date(fecha);
+        var fechaFin = new Date(fecha);
+        var dia = fechaInicio.getDay();
+        if (dia == 0) {
+            fechaInicio.setDate(fechaInicio.getDate() - 6);
+        } else {
+            fechaInicio.setDate(fechaInicio.getDate() - dia + 1);
+        }
+        fechaFin.setDate(fechaFin.getDate() - dia + 7);
+        return [fechaInicio, fechaFin];
     }
 
 </script>
@@ -453,6 +466,12 @@
         }
     });
     
+    
+    
+    
+
+
+
     ctx = document.getElementById('grafico2').getContext('2d');
     const myChart2 = new Chart(ctx, {
 
