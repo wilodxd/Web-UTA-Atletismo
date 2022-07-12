@@ -19,9 +19,12 @@ class Perfil extends Controller
             $rut = $usuario->rut;
             // obtener progreso personal
             $progresoPersonal = ProgresoPersonal::where('rut_usuario', $rut)->get();
+            // obtener imagen de perfil
+            $imagen = $usuario->imagen;
             
             $datos = [
-                'progresos' => $progresoPersonal
+                'progresos' => $progresoPersonal,
+                'imagenPerfil' => $imagen
             ];
 
             return view('perfil', $datos);

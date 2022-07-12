@@ -17,7 +17,7 @@
                     <div class="collapse show" id="datosPersonales">
                         <div class="card flex-row flex-wrap flex-md-nowrap align-items-center border border-dark" style="min-height: 300px;">
                             <div class="card-header border-0 ">
-                                <img src="img/1-usain-bolt-medallas.jpg" alt="imagen_usuario" class="img-fluid img-responsive">
+                                <img src="{{ asset('storage/' . $imagenPerfil) }}" alt="imagen_usuario" class="img-fluid img-responsive">
                                 <!-- mostrara el nombre completo -->
                                 <h2 class="card-title">{{Auth::user()->nombre}} {{Auth::user()->apellido_1}} {{Auth::user()->apellido_2}}</h2>
                             </div>
@@ -257,9 +257,9 @@
                     </button>
                     <div class="row collapse show border border-dark p-5 m-2" id="resumenSemana" style="min-height: 300px;">
                         <div class="col-12 border border-dark">
-                            <p>Distancia total: 100 km</p>
-                            <p>Velocidad promedio: 3 m/s</p>
-                            <p>Mejor velocidad: 5 m/s (05/06)</p>                              
+                            <p>Distancia total: <span id="resumen-semana-distancia">9</span> metros</p>
+                            <p>Velocidad promedio: <span id="resumen-semana-velocidad">9</span> m/s</p>
+                            <p>Mejor velocidad: <span id="resumen-semana-mejor-velocidad">9</span> m/s (<span id="resumen-semana-mejor-velocidad-hora">9</span>)</p>                              
                         </div>
                         <div class="grafico col-12 col-md-6">
                             <canvas id="grafico2" width="20px" height="20px"></canvas>
@@ -277,9 +277,9 @@
                     </button>
                     <div class="row collapse show border border-dark p-5 m-2" id="resumenMes" style="min-height: 300px;">
                         <div class="col-12 border border-dark">
-                            <p>Distancia total: 400 km</p>
-                            <p>Velocidad promedio: 3.5 m/s</p>
-                            <p>Mejor velocidad: 6 m/s (15/06)</p>                              
+                            <p>Distancia total: <span id="resumen-mes-distancia">9</span> metros</p>
+                            <p>Velocidad promedio: <span id="resumen-mes-velocidad">9</span> m/s</p>
+                            <p>Mejor velocidad: <span id="resumen-mes-mejor-velocidad">9</span> m/s (<span id="resumen-mes-mejor-velocidad-hora">9</span>)</p>                              
                         </div>
                         <div class="grafico col-12 col-xl-6">
                             <canvas id="grafico4" width="20px" height="20px"></canvas>
@@ -342,7 +342,7 @@
     }  
 
     // Crear lista con progresos por rango de fechas
-    function getProgresosRango(fechaInicio, fechaFin){
+    function getProgresosFechaRango(fechaInicio, fechaFin){
         var progresosRango = [];
         for (var i = 0; i < progresos.length; i++) {
             if (progresos[i].fecha.getDate() >= fechaInicio.getDate() && progresos[i].fecha.getMonth() >= fechaInicio.getMonth() && progresos[i].fecha.getFullYear() >= fechaInicio.getFullYear() && progresos[i].fecha.getDate() <= fechaFin.getDate() && progresos[i].fecha.getMonth() <= fechaFin.getMonth() && progresos[i].fecha.getFullYear() <= fechaFin.getFullYear()) {
@@ -352,73 +352,197 @@
         return progresosRango;
     }
 
-    // obtener fecha de inicio y termino de la semana, retorna un arreglo con dos fechas, la primera es el lunes y la segunda es el domingo de la semana
+    // retorna un arreglo con todas las fechas de la semana
     function getFechaSemana(fecha){
-        var fechaInicio = new Date(fecha);
-        var fechaFin = new Date(fecha);
-        var dia = fechaInicio.getDay();
-        if (dia == 0) {
-            fechaInicio.setDate(fechaInicio.getDate() - 6);
-        } else {
-            fechaInicio.setDate(fechaInicio.getDate() - dia + 1);
+        var fechaSemana = [];
+        for (var i = 0; i < 7; i++) {
+            fechaSemana.push(new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate() + i));
         }
-        fechaFin.setDate(fechaFin.getDate() - dia + 7);
-        return [fechaInicio, fechaFin];
+        return fechaSemana;
     }
 
-</script>
-
-<script>
-    // Resumen del día
-    
-    // fecha actual
-    var fechaActualObj = new Date();
-    var fechaActual = fechaActualObj.getFullYear() + "-" + (fechaActualObj.getMonth() + 1) + "-" + fechaActualObj.getDate();
-
-    // lista progresos del día
-    var listaProgresosDia = getProgresosFecha(fechaActualObj);
-
-    // datos grafico
-    graficoVelocidad_label = []
-    graficoVelocidad_data = []
-
-    // resumen del dia
-    resumenDia_distanciaTotal = 0;
-    resumenDia_velocidadPromedioSuma = 0;
-    resumenDia_velocidadPromedio = 0;
-    resumenDia_numeroRegistros = 0;
-    
-    resumenDia_Progreso_mejorVelocidad = progresos[0];
-
-
-    // 
-    listaProgresosDia.forEach(progreso => {
-        hora = progreso.fecha.getHours() + ':' + progreso.fecha.getMinutes();
-        graficoVelocidad_label.push(hora);
-        graficoVelocidad_data.push(progreso.velocidad);
-        resumenDia_distanciaTotal+=progreso.distancia;
-        resumenDia_velocidadPromedioSuma+=progreso.velocidad;
-        resumenDia_numeroRegistros++;
-        if( progreso.velocidad > resumenDia_Progreso_mejorVelocidad.velocidad ){
-            resumenDia_Progreso_mejorVelocidad = progreso;
+    function getFechaMes(fecha){
+        var fechaMes = [];
+        for (var i = 0; i < 30; i++) {
+            fechaMes.push(new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate() + i));
         }
-    });
+        return fechaMes;
+    }
 
-    // calcular promedio
-    resumenDia_velocidadPromedio = Math.round(resumenDia_velocidadPromedioSuma/resumenDia_numeroRegistros*100)/100;
+    // Esta funcion retorna la distancia total, velocidad promedio y el progreso con mejor velocidad de una fecha, además, retorna datos para el gráfico de velocidad
+    function getResumenDelDia(fecha){
+        // fecha actual
+        var  fechaActualObj = new Date(fecha);
+        var  fechaActual = fechaActualObj.getFullYear() + "-" + (fechaActualObj.getMonth() + 1) + "-" + fechaActualObj.getDate();
 
-    
+        // lista progresos del día
+        var  listaProgresosDia = getProgresosFecha(fechaActualObj);
+
+        if( listaProgresosDia.length == 0 ){
+            return [0, 0, 0, 0, 0];
+        }
+
+        // datos grafico
+        var graficoVelocidad_label = []
+        var graficoVelocidad_data = []
+
+        // resumen del dia
+        var resumenDia_distanciaTotal = 0;
+        var resumenDia_velocidadPromedioSuma = 0;
+        var resumenDia_velocidadPromedio = 0;
+        var resumenDia_numeroRegistros = 0;
+        
+        var resumenDia_Progreso_mejorVelocidad = progresos[0];
+
+
+        // 
+        listaProgresosDia.forEach(progreso => {
+            hora = progreso.fecha.getHours() + ':' + progreso.fecha.getMinutes();
+            graficoVelocidad_label.push(hora);
+            graficoVelocidad_data.push(progreso.velocidad);
+            resumenDia_distanciaTotal+=progreso.distancia;
+            resumenDia_velocidadPromedioSuma+=progreso.velocidad;
+            resumenDia_numeroRegistros++;
+            if( progreso.velocidad > resumenDia_Progreso_mejorVelocidad.velocidad ){
+                resumenDia_Progreso_mejorVelocidad = progreso;
+            }
+        });
+
+        // calcular promedio
+        var resumenDia_velocidadPromedio = Math.round(resumenDia_velocidadPromedioSuma/resumenDia_numeroRegistros*100)/100;        
+
+        return [resumenDia_distanciaTotal, resumenDia_velocidadPromedio, resumenDia_Progreso_mejorVelocidad, graficoVelocidad_label, graficoVelocidad_data];
+    }
+
+    function getResumenDeLaSemana(fecha){
+        // 
+        var fechaSemana = getFechaSemana(fecha);
+
+        // resumen de la semana
+        var resumenSemana_distanciaTotal = 0;
+        var resumenSemana_velocidadPromedioSuma = 0;
+        var resumenSemana_velocidadPromedio = 0;
+        var resumenSemana_numeroRegistros = 0;
+
+        // datos grafico velocidad
+        var graficoVelocidad_label = []
+        var graficoVelocidad_data = []
+
+        // datos grafico distancia
+        var graficoDistancia_label = []
+        var graficoDistancia_data = []
+        
+        var resumenSemana_Progreso_mejorVelocidad = progresos[0];
+
+        //
+        
+        fechaSemana.forEach(fecha => {
+
+            var resumenDia = getResumenDelDia(fecha);
+            
+            if(resumenDia != [0, 0, 0, 0, 0]){
+                resumenSemana_distanciaTotal+=resumenDia[0];
+                resumenSemana_velocidadPromedioSuma+=resumenDia[1];
+                resumenSemana_numeroRegistros++;
+                graficoVelocidad_label.push(fecha.getDate() + '/' + (fecha.getMonth() + 1));
+                graficoVelocidad_data.push(resumenDia[1]);
+                if( resumenDia[2].velocidad > resumenSemana_Progreso_mejorVelocidad.velocidad ){
+                    resumenSemana_Progreso_mejorVelocidad = resumenDia[2];
+                }
+                graficoDistancia_label.push(fecha.getDate() + '/' + (fecha.getMonth() + 1));
+                graficoDistancia_data.push(resumenDia[0]);
+            }
+
+        });
+
+        // calcular promedio
+        resumenSemana_velocidadPromedio = Math.round(resumenSemana_velocidadPromedioSuma/resumenSemana_numeroRegistros*100)/100;
+
+        return [resumenSemana_distanciaTotal, resumenSemana_velocidadPromedio, resumenSemana_Progreso_mejorVelocidad, graficoVelocidad_label, graficoVelocidad_data, graficoDistancia_label, graficoDistancia_data];
+    }
+
+    function getResumenDelMes(fecha){
+        // 
+        var fechaMes = getFechaMes(fecha);
+
+        // resumen del mes
+        var resumenMes_distanciaTotal = 0;
+        var resumenMes_velocidadPromedioSuma = 0;
+        var resumenMes_velocidadPromedio = 0;
+        var resumenMes_numeroRegistros = 0;
+
+        // datos grafico velocidad
+        var graficoVelocidad_label = []
+        var graficoVelocidad_data = []
+
+        // datos grafico distancia
+        var graficoDistancia_label = []
+        var graficoDistancia_data = []
+        
+        var resumenMes_Progreso_mejorVelocidad = progresos[0];
+
+        //
+        
+        fechaMes.forEach(fecha => {
+
+            var resumenDia = getResumenDelDia(fecha);
+            
+            if(resumenDia != [0, 0, 0, 0, 0]){
+                resumenMes_distanciaTotal+=resumenDia[0];
+                resumenMes_velocidadPromedioSuma+=resumenDia[1];
+                resumenMes_numeroRegistros++;
+                graficoVelocidad_label.push(fecha.getDate() + '/' + (fecha.getMonth() + 1));
+                graficoVelocidad_data.push(resumenDia[1]);
+                if( resumenDia[2].velocidad > resumenMes_Progreso_mejorVelocidad.velocidad ){
+                    resumenMes_Progreso_mejorVelocidad = resumenDia[2];
+                }
+                graficoDistancia_label.push(fecha.getDate() + '/' + (fecha.getMonth() + 1));
+                graficoDistancia_data.push(resumenDia[0]);
+            }
+
+        });
+
+        // calcular
+        resumenMes_velocidadPromedio = Math.round(resumenMes_velocidadPromedioSuma/resumenMes_numeroRegistros*100)/100;
+
+        return [resumenMes_distanciaTotal, resumenMes_velocidadPromedio, resumenMes_Progreso_mejorVelocidad, graficoVelocidad_label, graficoVelocidad_data, graficoDistancia_label, graficoDistancia_data];
+
+    }
+
+
     // actualizar datos diarios
     function actualizarResumenDiario(){
         document.getElementById('resumen-diario-distancia').textContent = resumenDia_distanciaTotal;
         document.getElementById('resumen-diario-velocidad').textContent = resumenDia_velocidadPromedio;
         document.getElementById('resumen-diario-mejor-velocidad').textContent = resumenDia_Progreso_mejorVelocidad.velocidad;
-        var hora = resumenDia_Progreso_mejorVelocidad.fecha.getHours() + '-' + resumenDia_Progreso_mejorVelocidad.fecha.getMinutes();
+        var hora = resumenDia_Progreso_mejorVelocidad.fecha.getHours() + ':' + resumenDia_Progreso_mejorVelocidad.fecha.getMinutes();
         document.getElementById('resumen-diario-mejor-velocidad-hora').textContent = hora;
     }
+
+    // actualizar datos semana
+    function actualizarResumenSemana(){
+        document.getElementById('resumen-semana-distancia').textContent = resumenSemana_distanciaTotal;
+        document.getElementById('resumen-semana-velocidad').textContent = resumenSemana_velocidadPromedio;
+        document.getElementById('resumen-semana-mejor-velocidad').textContent = resumenSemana_Progreso_mejorVelocidad.velocidad;
+        var hora = resumenSemana_Progreso_mejorVelocidad.fecha.getHours() + ':' + resumenSemana_Progreso_mejorVelocidad.fecha.getMinutes();
+        document.getElementById('resumen-semana-mejor-velocidad-hora').textContent = hora;
+    }
+
+</script>
+
+<script>
+    
+    // Resumen del día
+    resumenDia = getResumenDelDia(new Date());
+
+    // distribuir datos
+    resumenDia_distanciaTotal = resumenDia[0];
+    resumenDia_velocidadPromedio = resumenDia[1];
+    resumenDia_Progreso_mejorVelocidad = resumenDia[2];
+    grafico1Velocidad_label = resumenDia[3];
+    grafico1Velocidad_data = resumenDia[4];
+
     actualizarResumenDiario();
-
-
 
     // Grafico de velocidad
     let ctx = document.getElementById('grafico1').getContext('2d');
@@ -426,10 +550,10 @@
 
         type: 'line',
         data: {
-            labels: graficoVelocidad_label,
+            labels: grafico1Velocidad_label,
             datasets: [{
                 label: 'Velocidad en m/s',
-                data: graficoVelocidad_data,
+                data: grafico1Velocidad_data,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -466,21 +590,29 @@
         }
     });
     
-    
-    
-    
+    // Resumen de la semana
+    resumenSemana = getResumenDeLaSemana(new Date());
 
+    resumenSemana_distanciaTotal = resumenSemana[0];
+    resumenSemana_velocidadPromedio = resumenSemana[1];
+    resumenSemana_Progreso_mejorVelocidad = resumenSemana[2];
+    grafico2Velocidad_label = resumenSemana[3];
+    grafico2Velocidad_data = resumenSemana[4];
+    grafico3Distancia_label = resumenSemana[5];
+    grafico3Distancia_data = resumenSemana[6];
+    
+    actualizarResumenSemana();
 
-
+    // Grafico de velocidad
     ctx = document.getElementById('grafico2').getContext('2d');
     const myChart2 = new Chart(ctx, {
 
         type: 'line',
         data: {
-            labels: ['1/6', '2/6', '3/6', '4/6', '5/6', '6/6', '7/6'],
+            labels: grafico2Velocidad_label,
             datasets: [{
                 label: 'Velocidad en m/s',
-                data: [3, 5, 3.8, 2.5, 4, 2.1, 3.5],
+                data: grafico2Velocidad_data,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -522,10 +654,10 @@
 
         type: 'line',
         data: {
-            labels: ['1/6', '2/6', '3/6', '4/6', '5/6', '6/6', '7/6'],
+            labels: grafico3Distancia_label,
             datasets: [{
                 label: 'Distancia en km',
-                data: [13, 12, 12.2, 12.89, 14, 12, 10],
+                data: grafico3Distancia_data,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -562,15 +694,27 @@
         }
     });
     
+    // Resumen del mes
+    resumenMes = getResumenDelMes(new Date());
+
+    resumenMes_distanciaTotal = resumenMes[0];
+    resumenMes_velocidadPromedio = resumenMes[1];
+    resumenMes_Progreso_mejorVelocidad = resumenMes[2];
+    grafico4Velocidad_label = resumenMes[3];
+    grafico4Velocidad_data = resumenMes[4];
+    grafico5Distancia_label = resumenMes[5];
+    grafico5Distancia_data = resumenMes[6];
+
+
     ctx = document.getElementById('grafico4').getContext('2d');
     const myChart4 = new Chart(ctx, {
 
         type: 'line',
         data: {
-            labels: ['1/6', '2/6', '3/6', '4/6', '5/6', '6/6', '7/6', '8/6', '9/6', '10/6', '11/6', '12/6', '13/6', '14/6', '15/6', '16/6', '17/6', '18/6', '19/6', '20/6', '21/6', '22/6', '23/6', '24/6', '25/6', '26/6', '27/6', '28/6', '29/6', '30/6'],
+            labels: grafico4Velocidad_label,
             datasets: [{
                 label: 'Velocidad en m/s',
-                data: [3, 5, 3.8, 2.5, 4, 2.1, 3.5, 3, 5, 3.8, 2.5, 4, 2.1, 3.5, 3, 5, 3.8, 2.5, 4, 2.1, 3.5, 3, 5, 3.8, 2.5, 4, 2.1, 3.5, 3, 5, 3.8, 2.5, 4, 2.1],
+                data: grafico4Velocidad_data,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -612,10 +756,10 @@
 
         type: 'line',
         data: {
-            labels: ['1/6', '2/6', '3/6', '4/6', '5/6', '6/6', '7/6', '8/6', '9/6', '10/6', '11/6', '12/6', '13/6', '14/6', '15/6', '16/6', '17/6', '18/6', '19/6', '20/6', '21/6', '22/6', '23/6', '24/6', '25/6', '26/6', '27/6', '28/6', '29/6', '30/6'],
+            labels: grafico5Distancia_label,
             datasets: [{
                 label: '# of Votes',
-                data: [13, 12, 12.2, 12.89, 14, 12, 13, 12, 12.2, 12.89, 14, 12, 13, 12, 12.2, 12.89, 14, 12, 13, 12, 12.2, 12.89, 14, 12, 13, 12, 12.2, 12.89, 14, 12, 13, 12, 12.2, 12.89, 14, 12],
+                data: grafico5Distancia_data,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
