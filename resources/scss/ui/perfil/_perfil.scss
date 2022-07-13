@@ -18,3 +18,13 @@
     align-items: center;
     padding: 1rem;
 }
+
+// Mostrara cierta cantidad de columnas segun el tamaño de la pantalla
+.tr-progresos th:nth-child(5),
+.tr-progresos td:nth-child(5){
+    display: none !important;
+    // background-color: red;
+    @include m.tablet { 
+        display: table-cell !important;
+    }
+}

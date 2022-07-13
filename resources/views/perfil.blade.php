@@ -9,7 +9,7 @@
             <div class="row ">
 
                 <!--Informacion personal-->
-                <div class="col-6 col-lg-6 col-xl-6 py-2">
+                <div class="col-12 col-xl-6 py-2">
                     <button class="btn btn-light btn-block" type="button" data-toggle="collapse" data-target="#datosPersonales">
                         Datos personales
                     </button>
@@ -36,7 +36,7 @@
                 </div>
 
                 <!--Registro de progesos del usuario-->
-                <div class="col-6 col-lg-6 col-xl-6 py-2">
+                <div class="col-12 col-xl-6 py-2">
                     <button class="btn btn-light btn-block" type="button" data-toggle="collapse" data-target="#tablaProgresoPersonal">
                         Progresos personales
                     </button>
@@ -47,7 +47,7 @@
                         <div class="table-responsive border border-dark" style="height: 300px;">
                             <table class="table">
                                 <thead class="thead-dark">
-                                    <tr>
+                                    <tr class="tr-progresos">
                                         <th scope="col">#</th>
                                         <th scope="col">Fecha</th>                                            
                                         <th scope="col">Tiempo</th>
@@ -59,7 +59,7 @@
                                 <tbody>
                                     @php $i = 1 @endphp
                                     @foreach($progresos as $progreso)
-                                        <tr>
+                                        <tr class="tr-progresos">
                                             <th scope="row">{{$i}}</th>
                                             <td>{{$progreso->created_at}}</td>                                            
                                             <td>{{$progreso->tiempo}} s</td>
