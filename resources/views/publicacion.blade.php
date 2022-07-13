@@ -37,68 +37,46 @@
 
                 @foreach($publicaciones as $publicacion)
 
-                    @if( $publicacion->id != $publicacionActual->id)
-                        <div class="publicacion publicacion--mini">
+                    <div class="publicacion publicacion--mini">
 
-                            <img class="publicacion__imagen publicacion__imagen--mini" src="{{asset('storage').'/'.$publicacion->imagen }}" alt="imagen sobre la publicacion">
+                        <img class="publicacion__imagen publicacion__imagen--mini" src="{{asset('storage').'/'.$publicacion->imagen }}" alt="imagen sobre la publicacion">
 
-                            <div class="publicacion__texto publicacion__texto--mini">
+                        <div class="publicacion__texto publicacion__texto--mini">
 
-                                <h3 class="publicacion__titulo publicacion__titulo--mini">{{$publicacion->titulo}}</h3>
+                            <h3 class="publicacion__titulo publicacion__titulo--mini">{{$publicacion->titulo}}</h3>
 
-                                <p class="publicacion__resumen publicacion__resumen--mini">
-                                    {{ (strlen( $publicacion->contenido ) > 60) ? substr($publicacion->contenido,0,60) . '...' : $publicacion->contenido,0,60 }}
-                                </p>                        
+                            <p class="publicacion__resumen publicacion__resumen--mini">
+                                {{ (strlen( $publicacion->contenido ) > 60) ? substr($publicacion->contenido,0,60) . '...' : $publicacion->contenido,0,60 }}
+                            </p>                        
 
-                                <div class="publicacion__meta publicacion__meta--mini">
-                                    <p class="publicacion__escritor publicacion__escritor--mini">Escrito por: <span><?php
-                                        
-                                        $encontrado = false;
+                            <div class="publicacion__meta publicacion__meta--mini">
+                                <p class="publicacion__escritor publicacion__escritor--mini">Escrito por: <span><?php
+                                    
+                                    $encontrado = false;
 
-                                        foreach($usuarios as $usuario){
-                                            if($usuario->rut == $publicacion->rut_autor){
-                                                // nombre completo
-                                                echo $usuario->nombre.' '.$usuario->apellido_1.' '.$usuario->apellido_2;
-                                                $encontrado = true;
-                                            }
+                                    foreach($usuarios as $usuario){
+                                        if($usuario->rut == $publicacion->rut_autor){
+                                            // nombre completo
+                                            echo $usuario->nombre.' '.$usuario->apellido_1.' '.$usuario->apellido_2;
+                                            $encontrado = true;
                                         }
+                                    }
 
-                                        if(!$encontrado){
-                                            echo 'Administrador';
-                                        }
-                                        
-                                ?></span> </p>
-                                    <p class="publicacion__fecha publicacion__fecha--mini">Fecha <?php echo is_null($publicacion->updated_at) ? 'creacion' : 'actualizacion' ?>: <span> <?php echo is_null($publicacion->updated_at) ? $publicacion->created_at : $publicacion->updated_at ?> </span></p>
-                                </div>
-
-                                <a href="/publicacion/<?php echo $publicacion->id?>" class="btn btn-primary publicacion__boton">Seguir Leyendo...</a>
-
+                                    if(!$encontrado){
+                                        echo 'Administrador';
+                                    }
+                                    
+                            ?></span> </p>
+                                <p class="publicacion__fecha publicacion__fecha--mini">Fecha <?php echo is_null($publicacion->updated_at) ? 'creacion' : 'actualizacion' ?>: <span> <?php echo is_null($publicacion->updated_at) ? $publicacion->created_at : $publicacion->updated_at ?> </span></p>
                             </div>
 
+                            <a href="/publicacion/<?php echo $publicacion->id?>" class="btn btn-primary publicacion__boton">Seguir Leyendo...</a>
+
                         </div>
-                    @endif
-                @endforeach
-
-                <!-- <div class="publicacion publicacion--mini">
-
-                    <img class="publicacion__imagen publicacion__imagen--mini" src="/img/publicacion0.jpg" alt="imagen sobre la publicacion">
-
-                    <div class="publicacion__texto publicacion__texto--mini">
-
-                        <h3 class="publicacion__titulo publicacion__titulo--mini">Titulo Publicacion</h3>
-
-                        <p class="publicacion__resumen publicacion__resumen--mini">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus molestias, modi, debitis excepturi eligendi consequuntur tempore similique quam est voluptate cum itaque...</p>                        
-
-                        <div class="publicacion__meta publicacion__meta--mini">
-                            <p class="publicacion__escritor publicacion__escritor--mini">Escrito por: <span>Usain Bolt</span> </p>
-                            <p class="publicacion__fecha publicacion__fecha--mini">Fecha: <span>29/05/2022</span></p>
-                        </div>
-
-                        <a href="#" class="btn btn-primary publicacion__boton">Seguir Leyendo...</a>
 
                     </div>
-
-                </div> -->
+                    
+                @endforeach
 
             </div>
         </aside>

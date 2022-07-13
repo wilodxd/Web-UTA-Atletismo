@@ -8,6 +8,7 @@
     
     <link rel="stylesheet" href="{{URL::asset('css/app.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -18,11 +19,6 @@
                 <img class="header__logo" src="{{URL::asset('img/logo.png')}}" alt="Logo del club atletico universitarios de tarapaca">
                 <h1 class="header__titulo">Club Atletico Universitarios de Tarapaca</h1>
             </div>
-            <!-- <nav class="navegacion">
-                <a href="/" class="navegacion__link">Inicio</a>
-                <a href="#" class="navegacion__link">Nosotros</a>
-                <a href="#" class="navegacion__link navegacion__link--ingresar">Ingresar</a>
-            </nav> -->
             <nav class="navegacion">
                 <a href="/" class="navegacion__link">Inicio</a>
                 <!-- <a href="#" class="navegacion__link">Nosotros</a> -->
@@ -48,7 +44,6 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
     

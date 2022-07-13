@@ -44,20 +44,18 @@
                             <tr class="tr-usuarios">
                                 <th>{{$index}}</th>
                                 <td>
-                                    <img src="{{ asset('storage/' . $usuario->imagen) }}" alt="{{$usuario->nombre_completo}}" class="img-fluid" style="max-width: 120px; max-height: 70px;">
+                                    <img src="{{ asset('storage/' . $usuario->imagen) }}" alt="{{$usuario->nombre_completo}}" style=" width:100%;max-height: 150px; object-fit:cover;">
                                 </td>
                                 <td>{{$usuario->nombre . ' ' . $usuario->apellido_1 . ' ' . $usuario->apellido_2 }}</td>
                                 <td>{{$usuario->rut}}</td>
                                 <td>{{$usuario->carrera}}</td>
-                                <td class="row">
-                                    <div class="col-12 col-lg-6">
-                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modificarUsuario" 
+                                <td class="d-flex flex-column">
+                                    
+                                    <button type="button" class="btn btn-secondary mb-0 mb-2" data-toggle="modal" data-target="#modificarUsuario" 
                                         onClick="rellenarFormularioModificarUsuario('<?php echo $usuario->rut ?>')">Modificar</button>
-                                    </div>
-                                    <div class="col-12 col-lg-6">
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#eliminarUsuario" 
-                                        onClick="rellenarFormularioEliminarUsuario('<?php echo $usuario->rut ?>')">Eliminar</button>
-                                    </div>
+                                    
+                                    <button type="button" class="btn btn-danger m-0" data-toggle="modal" data-target="#eliminarUsuario" onClick="rellenarFormularioEliminarUsuario('<?php echo $usuario->rut ?>')" >Eliminar</button>
+                                    
                                 </td>
                             </tr>
                         @php $index = $index+1 @endphp
@@ -77,7 +75,7 @@
             
             <!-- Crear usuarios -->
             <form method="post" enctype="multipart/form-data">
-                <div class="modal fade" id="agregarUsuario">
+                <div class="modal show fade" id="agregarUsuario">
                     <div class="modal-dialog">
                         <div class="modal-content">
 
@@ -94,6 +92,16 @@
                             <div class="modal-body">
                         
                                 @csrf
+                                
+                                @if(count($errores) > 0)
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach($errores as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
 
                                 
                                 <div class="form-group">
@@ -101,55 +109,55 @@
 
                                     <img id="imgAgregar" alt="foto perfil usuario" hidden style="max-width: 200px;max-height: 200px; margin: 0 auto;margin-bottom:2rem">
 
-                                    <input type="file" class="form-control-file" id="imagen" name="imagen" accept=".png, .jpeg" onchange="loadFile(event,'imgAgregar')">
+                                    <input type="file" class="form-control-file" id="imagen" name="imagen" accept=".png, .jpeg" onchange="loadFile(event,'imgAgregar')" >
                                     
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label" for="nombre">Nombre:</label>
-                                    <input class="form-control" name="nombre" id="nombre" >
+                                    <input class="form-control" name="nombre" id="nombre" value="<?php echo (isset($input['nombre']))?$input['nombre']:'' ?>" >
                                 </div>
                                 
                                 <div class="form-group-h row">
                                     <div class="form-group col-6">
                                         <label class="col-form-label" for="apellido_1">Apellido Paterno:</label>
-                                        <input class="form-control" name="apellido_1" id="apellido_1">
+                                        <input class="form-control" name="apellido_1" id="apellido_1" value="<?php echo (isset($input['apellido_1']))?$input['apellido_1']:'' ?>" >
                                     </div>
                                     <div class="form-group col-6">
                                         <label class="col-form-label" for="apellido_2">Apellido Materno:</label>
-                                        <input class="form-control" name="apellido_2" id="apellido_2">
+                                        <input class="form-control" name="apellido_2" id="apellido_2" value="<?php echo (isset($input['apellido_2']))?$input['apellido_2']:'' ?>" >
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label" for="rut">Rut:</label>
-                                    <input class="form-control" name="rut" id="rut">
+                                    <input class="form-control" name="rut" id="rut" value="<?php echo (isset($input['rut']))?$input['rut']:'' ?>" >
                                 </div>
                                 
                                 <div class="form-group-h row">
                                     <div class="form-group col-6">
                                         <label class="col-form-label" for="fecha_nacimiento">Fecha de nacimiento:</label>
-                                        <input class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" type="date">
+                                        <input class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" type="date" value="<?php echo (isset($input['fecha_nacimiento']))?$input['fecha_nacimiento']:'' ?>" >
                                     </div>
                                     <div class="form-group col-6">
                                         <label class="col-form-label" for="fecha_ingreso">Fecha de ingreso:</label>
-                                        <input class="form-control" name="fecha_ingreso" id="fecha_ingreso" type="date">
+                                        <input class="form-control" name="fecha_ingreso" id="fecha_ingreso" type="date" value="<?php echo (isset($input['fecha_ingreso']))?$input['fecha_ingreso']:'' ?>" >
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label" for="carrera">Carrera:</label>
-                                    <input class="form-control" name="carrera" id="carrera">
+                                    <input class="form-control" name="carrera" id="carrera" value="<?php echo (isset($input['carrera']))?$input['carrera']:'' ?>" >
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label" for="correo">Correo electronico:</label>
-                                    <input type="email" class="form-control" name="correo" id="correo">
+                                    <input type="email" class="form-control" name="correo" id="correo" value="<?php echo (isset($input['correo']))?$input['correo']:'' ?>" >
                                 </div>                                                   
 
                                 <div class="form-row mb-3" style="align-items: center;">
                                     <label for="tipo_usuario" class="col-3">Administrador</label>
                                     <div class="col">
-                                        <input type="checkbox" id="tipo_usuario" name="tipo_usuario">
+                                        <input type="checkbox" id="tipo_usuario" name="tipo_usuario" <?php echo (isset($input['tipo_usuario']))?'checked':'' ?> >
                                     </div>
                                 </div>       
                         
@@ -389,6 +397,38 @@
         document.getElementById("eliminar-rut").value = usuario.rut;
 
     }
+
+</script>
+
+<script>
+    // esta funcion retorna el formato de rut con el guion y puntos
+    function formatoRut(rut) {
+        var valor = rut.value.replace('.','');
+        valor = valor.replace('-','');
+        var cuerpo = valor.slice(0,-1);
+        var dv = valor.slice(-1).toUpperCase();
+
+        if(rut.value.length > 0) {
+            // se agrega el guion al rut
+            rut.value = cuerpo + '-'+ dv
+        }
+        
+    }
+
+    $('#rut').keyup(function(){
+        
+        formatoRut(document.getElementById('rut'));
+        
+    });
+
+    <?php
+    // si hay errores
+    if(count($errores) > 0){
+        // delay de 200ms para que se muestre el mensaje de error
+        echo "setTimeout(function(){
+            $('#agregarUsuario').modal('show');
+        }, 200);";
+    }?>
 
 </script>
 

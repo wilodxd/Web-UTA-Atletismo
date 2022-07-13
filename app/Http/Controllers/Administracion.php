@@ -8,10 +8,106 @@ use App\Models\Publicacion;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class Administracion extends Controller
 {
     
+    protected function verificarErroresUsuario($datosUsuario){
+        $errores = [];
+        
+        // verificar que el correo no exista
+        $usuario = Usuario::where('correo', $datosUsuario['correo'])->first();
+        if($usuario){
+            $errores['correo'] = 'El correo ya existe';
+        }
+        // verificar que el rut no exista
+        $usuario = Usuario::where('rut', $datosUsuario['rut'])->first();
+        if($usuario){
+            $errores['rut'] = 'El rut ya existe';
+        }
+
+        // validar nombre
+        $nombre = $datosUsuario['nombre'];
+        if(strlen($nombre) < 3){
+            $errores['nombre'] = 'El nombre debe tener al menos 3 caracteres';
+        }
+        // validar apellido 1
+        $apellido_1 = $datosUsuario['apellido_1'];
+        if(strlen($apellido_1) < 3){
+            $errores['apellido_1'] = 'El apellido paterno debe tener al menos 3 caracteres';
+        }
+        // validar apellido 2
+        $apellido_2 = $datosUsuario['apellido_2'];
+        if(strlen($apellido_2) < 3){
+            $errores['apellido_2'] = 'El apellido  debe tener al menos 3 caracteres';
+        }
+        // validar carrera
+        $carrera = $datosUsuario['carrera'];
+        if(strlen($carrera) < 3){
+            $errores['carrera'] = 'La carrera debe tener al menos 3 caracteres';
+        }
+
+        // validar correo
+        $correo = $datosUsuario['correo'];
+        if(!filter_var($correo, FILTER_VALIDATE_EMAIL)){
+            $errores['correo'] = 'El correo no es válido';
+        }
+        // validar rut
+        $rut = $datosUsuario['rut'];
+        if(strlen($rut) < 9){
+            $errores['rut'] = 'El rut debe tener al menos 9 caracteres';
+        }
+        
+        // validar tamaño imagen
+        if(isset($datosUsuario['imagen'])){
+            $imagen = $datosUsuario['imagen'];
+            $tamano = $imagen->getSize();
+            if($tamano > 2000000){
+                $errores['imagen'] = 'La foto de perfil debe tener un tamaño menor a 2MB';
+            }
+        }else{
+            $errores['imagen'] = 'La foto de perfil es obligatoria';
+        }
+        
+
+        return $errores;
+    }
+
+    protected function verificarErroresPublicacion($datosPublicacion){
+        $errores = [];
+        
+        // verificar que el titulo no exista
+        $publicacion = Publicacion::where('titulo', $datosPublicacion['titulo'])->first();
+        if($publicacion){
+            $errores['titulo'] = 'El titulo ya existe';
+        }
+        // validar titulo
+        $titulo = $datosPublicacion['titulo'];
+        if(strlen($titulo) < 3){
+            $errores['titulo'] = 'El titulo debe tener al menos 3 caracteres';
+        }
+        // validar descripcion
+        $contenido = $datosPublicacion['contenido'];
+        if(strlen($contenido) < 10){
+            $errores['contenido'] = 'El contenido debe tener al menos 10 caracteres';
+        }
+
+        // validar tamaño imagen
+        if(isset($datosUsuario['imagen'])){
+            $imagen = $datosUsuario['imagen'];
+            $tamano = $imagen->getSize();
+            if($tamano > 2000000){
+                $errores['imagen'] = 'La imagen debe tener un tamaño menor a 2MB';
+            }
+        }else{
+            $errores['imagen'] = 'La imagen es obligatoria';
+        }
+        
+
+        return $errores;
+    }
+
     protected function comprobarPermisosAdministrador(){
         // Comprobar si esta logeado y el usuario tiene permisos de administrador
         
@@ -37,6 +133,16 @@ class Administracion extends Controller
         // Comprobar si tiene permisos para acceder a esta pagina
         if(!Administracion::comprobarPermisosAdministrador() ){ return redirect('/'); } // Redirigir a inicio
 
+        // verificar si hay mensaje de error
+        $errores = $request->session()->get('errores');
+        if(!$errores){
+            $errores = [];
+        }
+        
+        // obtener input
+        $input = $request->session()->get('input');
+        
+
         switch ($request->method()) {
             case 'POST':
                                 
@@ -44,9 +150,21 @@ class Administracion extends Controller
 
                     case 'crear':{
                         
-                        // 
+                        // obtener datos
                         $datosUsuario = $request->except(['_token', 'transaccion']);
+
+                        // array de mensajes de errores
+                        $errores = Administracion::verificarErroresUsuario($datosUsuario);
                         
+                        // verificar que no haya errores
+                        if(count($errores) > 0){
+                            // guardar errores en la sesion
+                            // obtener pathname de la imagen del datosusuario
+                            $datosUsuario['imagen'] = "";
+                            return redirect('/administracion/usuario')->with('errores', $errores)->with('input', $datosUsuario);
+                        }
+
+
                         // Cambiar tipo de usuario a 1 (administrador)
                         if( array_key_exists('tipo_usuario', $datosUsuario) ){
                             $datosUsuario['tipo_usuario'] = 1;
@@ -112,6 +230,7 @@ class Administracion extends Controller
                 break;
             case 'GET':
                 // 
+
                 break;
             default:
                 //invalido
@@ -120,6 +239,8 @@ class Administracion extends Controller
         
         // Obtener todos los usuarios
         $datos['usuarios'] = Usuario::all();
+        $datos['errores'] = $errores;
+        $datos['input'] = $input;
 
 
 
@@ -130,6 +251,15 @@ class Administracion extends Controller
 
         // Comprobar si tiene permisos para acceder a esta pagina
         if(!Administracion::comprobarPermisosAdministrador() ){ return redirect('/'); } // Redirigir a inicio
+
+        // verificar si hay mensaje de error
+        $errores = $request->session()->get('errores');
+        if(!$errores){
+            $errores = [];
+        }
+        
+        // obtener input
+        $input = $request->session()->get('input');
 
         switch ($request->method()) {
             case 'POST':
@@ -142,6 +272,17 @@ class Administracion extends Controller
                         // 
                         $datosPublicacion = $request->except(['_token', 'transaccion']);
                         
+                        // array de mensajes de errores
+                        $errores = Administracion::verificarErroresPublicacion($datosPublicacion);
+                    
+                        // verificar que no haya errores
+                        if(count($errores) > 0){
+                            // guardar errores en la sesion
+                            // obtener pathname de la imagen del datosPublicacion
+                            $datosPublicacion['imagen'] = "";
+                            return redirect('/administracion/publicacion')->with('errores', $errores)->with('input', $datosPublicacion);
+                        }
+
                         // Cambiar tipo de usuario a 1 (administrador)
                         if( array_key_exists('actividad', $datosPublicacion) ){
                             $datosPublicacion['actividad'] = 1;
@@ -208,7 +349,9 @@ class Administracion extends Controller
         }
         
         // Obtener todas las publicaciones
-        $datos['publicaciones'] = Publicacion::all();
+        $datos['publicaciones'] = Publicacion::all()->sortByDesc('created_at');
+        $datos['errores'] = $errores;
+        $datos['input'] = $input;
         
         return view('administracion-publicacion',$datos);
     }

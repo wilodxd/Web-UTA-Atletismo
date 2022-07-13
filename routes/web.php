@@ -32,6 +32,7 @@ Route::get( '/cambiar-contrasena' , [Sesion::class, 'cambiarContrasena']);
 
 Route::get( '/perfil' , [Perfil::class, 'index']);
 Route::post( '/perfil/registrar-progreso' , [Perfil::class, 'registrarProgreso']);
+Route::post( '/perfil/eliminar-progreso' , [Perfil::class, 'eliminarProgreso']);
 
 Route::get( '/administracion' , [Administracion::class, 'index'] );
 

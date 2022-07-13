@@ -30,9 +30,9 @@ class Publicaciones extends Controller
             $autor = $autor->nombre . " " . $autor->apellido_1 . " " . $autor->apellido_2; 
         }
         
-        // cargar todas las publicaciones
-        $publicaciones = Publicacion::all()->where('actividad', 0);
-
+        // cargar 8 publicaciones mas recientes
+        $publicaciones = Publicacion::where('id', '!=', $id)->orderBy('created_at', 'desc')->take(6)->get();
+        
         // cargar todos los usuarios
         $usuarios = Usuario::all();
 

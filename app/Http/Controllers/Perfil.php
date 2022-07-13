@@ -19,6 +19,10 @@ class Perfil extends Controller
             $rut = $usuario->rut;
             // obtener progreso personal
             $progresoPersonal = ProgresoPersonal::where('rut_usuario', $rut)->get();
+
+            // ordenar progreso personal por fecha
+            $progresoPersonal = $progresoPersonal->sortByDesc('created_at');
+
             // obtener imagen de perfil
             $imagen = $usuario->imagen;
             
@@ -86,5 +90,29 @@ class Perfil extends Controller
 
         return redirect('/');
 
+    }
+
+    public function eliminarProgreso(Request $request){
+
+        // verificar que esta logeado
+        if(Auth::check()){
+
+            // obtener progreso personal
+            $datosProgresoPersonal = $request->except(['_token']);
+
+            // eliminar progreso personal
+            $progresoPersonal = ProgresoPersonal::where('id', $datosProgresoPersonal['id']);
+            
+            print("aaaa");
+            print($datosProgresoPersonal['id']);
+            print("aaaa");
+
+            // imprimir datos progreso personal
+            $progresoPersonal->delete();
+
+            // return redirect('/perfil');
+        }
+
+        // return redirect('/');
     }
 }

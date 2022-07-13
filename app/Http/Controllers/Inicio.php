@@ -10,9 +10,9 @@ class Inicio extends Controller
 {
     public function index(){
 
-        // Obtener todas las publicaciones
-        $publicaciones = Publicacion::all();
-
+        // Obtener las 15 ultimas publicaciones
+        $publicaciones = Publicacion::orderBy('created_at', 'desc')->take(15)->get();
+        
         // Obtener todos los usuarios
         $usuarios = Usuario::all();
 

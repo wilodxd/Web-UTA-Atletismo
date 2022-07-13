@@ -45,21 +45,17 @@
                                 </td>                                            
                                 <td>{{$publicacion->titulo}}</td>
                                 <td>{{$publicacion->created_at}}</td>
-                                <td class="row">
                                     
-                                    <div class="col-12 col-lg-6">
-                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modificarPublicacion"
+                                <td class="d-flex flex-column">
+                                    
+                                    <button type="button" class="btn btn-secondary mb-0 mb-2" data-toggle="modal" data-target="#modificarPublicacion"
                                         onClick="rellenarFormularioModificarPublicacion('<?php echo $publicacion->id ?>')">Modificar</button>
-                                    </div>
                                     
-                                    <div class="col-12 col-lg-6">
-
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#eliminarPublicacion"
+                                    <button type="button" class="btn btn-danger m-0" data-toggle="modal" data-target="#eliminarPublicacion"
                                         onClick="rellenarFormularioEliminarPublicacion('<?php echo $publicacion->id ?>')">Eliminar</button>
-
-                                    </div>
-
+                                    
                                 </td>
+
                             </tr>
                         @endforeach
                         
@@ -90,13 +86,23 @@
 
                                 @csrf
 
+                                @if(count($errores) > 0)
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach($errores as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
                                 <!-- se agrega el rut del usuario autenticado -->
                                 <input type="hidden" name="rut_autor" value="{{Auth::user()->rut}}">
 
                                 <div class="form-row mb-3">
                                     <label for="formControlInput1" class="col-form-label col-12 col-md-3">Título</label>
                                     <div class="col">
-                                        <input type="text" class="form-control" name="titulo" id="titulo">
+                                        <input type="text" class="form-control" name="titulo" id="titulo" value="<?php echo (isset($input['titulo']))?$input['titulo']:'' ?>">
                                     </div>
                                 </div>                           
                                     
@@ -106,7 +112,7 @@
                                     <div class="col">
                                         <input type="file" class="form-control-file" accept=".png, .jpeg" onchange="loadFile(event,'imgAgregar')" name="imagen" id="imagen">
                                         <!--? style -->
-                                        <img class="mt-2" id="imgAgregar" alt="Imagen publicación" hidden style="max-width: 200px;">
+                                        <img class="mt-2" id="imgAgregar" alt="Imagen publicación" hidden style="max-width: 200px;" >
                                     </div>
                                 </div>
                     
@@ -114,14 +120,14 @@
                                     <label for="formControlInput3" class="col-12 col-md-3">Contenido</label>
                                     <div class="col">
                                         <!--? style -->
-                                        <textarea class="form-control" style="height: 200px; resize: none;" name="contenido" id="contenido"></textarea>
+                                        <textarea class="form-control" style="height: 200px; resize: none;" name="contenido" id="contenido" value="<?php echo (isset($input['contenido']))?$input['contenido']:'' ?>"></textarea>
                                     </div>
                                 </div>
                                 
                                 <div class="form-row mb-3">
                                     <label for="formControlInput4" class="col-3">Actividad</label>
                                     <div class="col" >
-                                        <input type="checkbox" name="actividad" id="actividad">
+                                        <input type="checkbox" name="actividad" id="actividad" <?php echo (isset($input['tipo_usuario']))?'checked':'' ?>>
                                     </div>
                                 </div>                                        
                             
@@ -313,7 +319,14 @@
 
     }
 
-    
+    <?php
+    // si hay errores
+    if(count($errores) > 0){
+        // delay de 200ms para que se muestre el mensaje de error
+        echo "setTimeout(function(){
+            $('#agregarPublicacion').modal('show');
+        }, 200);";
+    }?>
 
 </script>
 

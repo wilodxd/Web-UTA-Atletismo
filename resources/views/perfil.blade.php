@@ -9,7 +9,7 @@
             <div class="row ">
 
                 <!--Informacion personal-->
-                <div class="col-12 col-lg-6 col-xl-4 py-2">
+                <div class="col-6 col-lg-6 col-xl-6 py-2">
                     <button class="btn btn-light btn-block" type="button" data-toggle="collapse" data-target="#datosPersonales">
                         Datos personales
                     </button>
@@ -24,93 +24,19 @@
                             <div class="card-block px-2 ">                                
                                 <p>Rut: {{Auth::user()->rut}}</p>
                                 <p>Carrera: {{Auth::user()->carrera}}</p>
-                                <!-- <p>Numero de contacto: 56 9 111111</p> -->
                                 <p>Correo electronico: {{Auth::user()->correo}}</p>
+                                <p>Fecha de nacimiento: {{Auth::user()->fecha_nacimiento}}</p>
+                                <p>Fecha de ingreso: {{Auth::user()->fecha_ingreso}}</p>
+                                
+
                             </div>                            
                         </div>
                     </div>                
                                         
                 </div>
 
-                <!--Registro de progesos del profesor-->
-                <div class="col-12 col-lg-6 col-xl-4 py-2" >
-                    <button class="btn btn-light btn-block" type="button" data-toggle="collapse" data-target="#tablaProgresoClub">
-                        Progresos del club
-                    </button>
-
-                    <div class="collapse show" id="tablaProgresoClub">
-                        <div class="table-responsive border border-dark" style="height: 300px;">
-                            <table class="table">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Fecha</th>                                        
-                                        <th scope="col">Tiempo</th>
-                                        <th scope="col">Distancia</th>
-                                        <th scope="col">Comentario</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>28/05/2022</td>                                        
-                                        <td>20 s</td>
-                                        <td>100 m</td>
-                                        <td>Fue un buen dia!!</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>28/05/2022</td>                                        
-                                        <td>20 s</td>
-                                        <td>100 m</td>
-                                        <td>Fue un buen dia!!</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>28/05/2022</td>                                        
-                                        <td>20 s</td>
-                                        <td>100 m</td>
-                                        <td>Fue un buen dia!!</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>28/05/2022</td>                                        
-                                        <td>20 s</td>
-                                        <td>100 m</td>
-                                        <td>Fue un buen dia!!</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>28/05/2022</td>                                        
-                                        <td>20 s</td>
-                                        <td>100 m</td>
-                                        <td>Fue un buen dia!!</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>28/05/2022</td>                                        
-                                        <td>20 s</td>
-                                        <td>100 m</td>
-                                        <td>Fue un buen dia!!</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>28/05/2022</td>                                        
-                                        <td>20 s</td>
-                                        <td>100 m</td>
-                                        <td>Fue un buen dia!!</td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
-                                                        
-                        </div> 
-                    </div>
-                                        
-                </div>
-
                 <!--Registro de progesos del usuario-->
-                <div class="col-12 col-lg-6 col-xl-4 py-2">
+                <div class="col-6 col-lg-6 col-xl-6 py-2">
                     <button class="btn btn-light btn-block" type="button" data-toggle="collapse" data-target="#tablaProgresoPersonal">
                         Progresos personales
                     </button>
@@ -127,18 +53,24 @@
                                         <th scope="col">Tiempo</th>
                                         <th scope="col">Distancia</th>
                                         <th scope="col">Comentario</th>
+                                        <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php $i = 1 @endphp
                                     @foreach($progresos as $progreso)
                                         <tr>
-                                            <th scope="row">{{$progreso->id}}</th>
+                                            <th scope="row">{{$i}}</th>
                                             <td>{{$progreso->created_at}}</td>                                            
                                             <td>{{$progreso->tiempo}} s</td>
                                             <td>{{$progreso->distancia}} m</td>
                                             <td>{{$progreso->comentario}}</td>
+                                            <td><button type="button" class="btn btn-danger m-0" data-toggle="modal" data-target="#eliminarProgreso"
+                                        onClick="rellenarFormularioEliminarProgreso('<?php echo $progreso->id ?>')">Eliminar</button></td>
                                         </tr>
+                                        @php $i += 1 @endphp
                                     @endforeach
+
                                 </tbody>
                             </table>
                             
@@ -224,7 +156,33 @@
                         </div>
                     
                     </form>
-                                                            
+                    <!-- Eliminar-->
+                    <form class="modal fade" id="eliminarProgreso" method="POST" action="/perfil/eliminar-progreso">
+                        @csrf
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Eliminar progreso</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Está seguro de eliminar el progreso?</p>
+                                    <p>fecha: <span id="eliminar-progreso-fecha">a</span></p>
+                                    <p>tiempo: <span id="eliminar-progreso-tiempo">a</span></p>
+                                    <p>distancia: <span id="eliminar-progreso-distancia">a</span></p>
+                                    <p>comentario: <span id="eliminar-progreso-comentario">a</span></p>
+                                    <input type="hidden" name="id" id="id">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>   
@@ -305,9 +263,6 @@
         var fecha = new Date(fechaHora);
         return fecha;
     }
-
-    
-
     // Crear objeto progreso
     function Progreso(id, fecha, distancia, tiempo, comentario) {
         this.id = id;
@@ -325,9 +280,19 @@
     // Agregar progreso
     <?php
         foreach ($progresos as $progreso) {
-            echo "progresos.push(new Progreso(".$progreso->id.", '".$progreso->created_at."', ".$progreso->distancia.", '".$progreso->tiempo.", ".$progreso->comentario."'));";
+            echo "progresos.push(new Progreso('".$progreso->id."', '".$progreso->created_at."', '".$progreso->distancia."', '".$progreso->tiempo."', '".$progreso->comentario."'));";
         }
     ?>
+
+    // buscar progreso por id, retorna un progreso 
+    function buscarProgreso(id){
+        for (var i = 0; i < progresos.length; i++) {
+            if (progresos[i].id == id) {
+                return progresos[i];
+            }
+        }
+        return null;
+    }
 
     // Crear lista con progresos de una fecha
     function getProgresosFecha(fecha){
@@ -838,5 +803,43 @@
 
 </script>
 
+
+<script>
+    // rellenar formulario eliminar
+    function rellenarFormularioEliminarProgreso(id) {
+        // buscar progreso
+        var progreso = buscarProgreso(id);
+        console.log(progreso);
+        
+        // cambiar id
+        document.getElementById("id").value = progreso.id;
+        // obtener fecha de date
+        fecha = progreso.fecha;
+        var dd = fecha.getDate();
+        var mm = fecha.getMonth()+1; //January is 0!
+        var yyyy = fecha.getFullYear();
+        if(dd<10) {
+            dd='0'+dd
+        }
+        if(mm<10) {
+            mm='0'+mm
+        }
+        fecha = yyyy+'-'+mm+'-'+dd;
+        document.getElementById("eliminar-progreso-fecha").innerHTML = fecha;
+
+        // modificar span #eliminar-progreso-hora
+        document.getElementById("eliminar-progreso-tiempo").innerHTML = progreso.tiempo;
+
+        // modificar span #eliminar-progreso-distancia
+        document.getElementById("eliminar-progreso-distancia").innerHTML = progreso.distancia;
+
+        // modificar span #eliminar-progreso-comentario
+        document.getElementById("eliminar-progreso-comentario").innerHTML = progreso.comentario;
+
+        
+        
+
+    }
+</script>
 
 @stop
