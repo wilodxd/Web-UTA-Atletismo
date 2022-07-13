@@ -37,7 +37,11 @@ class Publicaciones extends Controller
         $usuarios = Usuario::all();
 
         //cargar actividad usuario con publicacion actual
-        $actividad = UsuarioActividad::where('rut_usuario', Auth::user()->rut)->where('id_publicacion', $id)->first();
+        if(Auth::check()){
+            $actividad = UsuarioActividad::where('rut_usuario', Auth::user()->rut)->where('id_publicacion', $id)->first();
+        }else{
+            $actividad = null;
+        }
 
         // print('<pre>');
         // print_r($actividad);
