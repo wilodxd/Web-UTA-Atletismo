@@ -13,18 +13,22 @@ use Illuminate\Support\Facades\Validator;
 class Administracion extends Controller
 {
     
-    protected function verificarErroresUsuario($datosUsuario){
+    protected function verificarErroresUsuario($datosUsuario, $tipo){
         $errores = [];
         
-        // verificar que el correo no exista
-        $usuario = Usuario::where('correo', $datosUsuario['correo'])->first();
-        if($usuario){
-            $errores['correo'] = 'El correo ya existe';
+        if($tipo == 'crear'){
+            // verificar que el correo no exista
+            $usuario = Usuario::where('correo', $datosUsuario['correo'])->first();
+            if($usuario){
+                $errores['correo'] = 'El correo ya existe';
+            }
         }
-        // verificar que el rut no exista
-        $usuario = Usuario::where('rut', $datosUsuario['rut'])->first();
-        if($usuario){
-            $errores['rut'] = 'El rut ya existe';
+        if($tipo == 'crear'){
+            // verificar que el rut no exista
+            $usuario = Usuario::where('rut', $datosUsuario['rut'])->first();
+            if($usuario){
+                $errores['rut'] = 'El rut ya existe';
+            }
         }
 
         // validar nombre
@@ -59,28 +63,32 @@ class Administracion extends Controller
             $errores['rut'] = 'El rut debe tener al menos 9 caracteres';
         }
         
-        // validar tamaño imagen
-        if(isset($datosUsuario['imagen'])){
-            $imagen = $datosUsuario['imagen'];
-            $tamano = $imagen->getSize();
-            if($tamano > 2000000){
-                $errores['imagen'] = 'La foto de perfil debe tener un tamaño menor a 2MB';
+        if($tipo == 'crear'){
+            // validar tamaño imagen
+            if(isset($datosUsuario['imagen'])){
+                $imagen = $datosUsuario['imagen'];
+                $tamano = $imagen->getSize();
+                if($tamano > 2000000){
+                    $errores['imagen'] = 'La foto de perfil debe tener un tamaño menor a 2MB';
+                }
+            }else{
+                $errores['imagen'] = 'La foto de perfil es obligatoria';
             }
-        }else{
-            $errores['imagen'] = 'La foto de perfil es obligatoria';
         }
         
 
         return $errores;
     }
 
-    protected function verificarErroresPublicacion($datosPublicacion){
+    protected function verificarErroresPublicacion($datosPublicacion,$tipo){
         $errores = [];
         
-        // verificar que el titulo no exista
-        $publicacion = Publicacion::where('titulo', $datosPublicacion['titulo'])->first();
-        if($publicacion){
-            $errores['titulo'] = 'El titulo ya existe';
+        if($tipo == 'crear'){
+            // verificar que el titulo no exista
+            $publicacion = Publicacion::where('titulo', $datosPublicacion['titulo'])->first();
+            if($publicacion){
+                $errores['titulo'] = 'El titulo ya existe';
+            }
         }
         // validar titulo
         $titulo = $datosPublicacion['titulo'];
@@ -93,15 +101,17 @@ class Administracion extends Controller
             $errores['contenido'] = 'El contenido debe tener al menos 10 caracteres';
         }
 
-        // validar tamaño imagen
-        if(isset($datosPublicacion['imagen'])){
-            $imagen = $datosPublicacion['imagen'];
-            $tamano = $imagen->getSize();
-            if($tamano > 2000000){
-                $errores['imagen'] = 'La imagen debe tener un tamaño menor a 2MB';
+        if($tipo == 'crear'){
+            // validar tamaño imagen
+            if(isset($datosPublicacion['imagen'])){
+                $imagen = $datosPublicacion['imagen'];
+                $tamano = $imagen->getSize();
+                if($tamano > 2000000){
+                    $errores['imagen'] = 'La imagen debe tener un tamaño menor a 2MB';
+                }
+            }else{
+                $errores['imagen'] = 'La imagen es obligatoria';
             }
-        }else{
-            $errores['imagen'] = 'La imagen es obligatoria';
         }
         
 
@@ -141,6 +151,9 @@ class Administracion extends Controller
         
         // obtener input
         $input = $request->session()->get('input');
+
+        // tipo de error
+        $tipoError = $request->session()->get('tipoError');
         
 
         switch ($request->method()) {
@@ -154,16 +167,15 @@ class Administracion extends Controller
                         $datosUsuario = $request->except(['_token', 'transaccion']);
 
                         // array de mensajes de errores
-                        $errores = Administracion::verificarErroresUsuario($datosUsuario);
+                        $errores = Administracion::verificarErroresUsuario($datosUsuario, 'crear');
                         
                         // verificar que no haya errores
                         if(count($errores) > 0){
                             // guardar errores en la sesion
                             // obtener pathname de la imagen del datosusuario
                             $datosUsuario['imagen'] = "";
-                            return redirect('/administracion/usuario')->with('errores', $errores)->with('input', $datosUsuario);
+                            return redirect('/administracion/usuario')->with('errores', $errores)->with('input', $datosUsuario)->with('tipoError', 'crear');
                         }
-
 
                         // Cambiar tipo de usuario a 1 (administrador)
                         if( array_key_exists('tipo_usuario', $datosUsuario) ){
@@ -190,6 +202,19 @@ class Administracion extends Controller
                     case 'modificar':{
                         
                         $datosUsuario = $request->except(['_token', 'transaccion']);
+
+                        // array de mensajes de errores
+                        $errores = Administracion::verificarErroresUsuario($datosUsuario,'modificar');
+                        
+                        // verificar que no haya errores
+                        if(count($errores) > 0){
+                            // guardar errores en la sesion
+                            // obtener pathname de la imagen del datosusuario
+                            $ruta = Usuario::find($datosUsuario['rut'])->imagen;
+                            $datosUsuario['imagen'] = $ruta;
+                            return redirect('/administracion/usuario')->with('errores', $errores)->with('input', $datosUsuario)->with('tipoError', 'modificar');
+                        }
+
                         $usuario = Usuario::find($datosUsuario['rut']);
 
                         // Cambiar tipo de usuario a 1 (administrador)
@@ -241,6 +266,7 @@ class Administracion extends Controller
         $datos['usuarios'] = Usuario::all();
         $datos['errores'] = $errores;
         $datos['input'] = $input;
+        $datos['tipoError'] = $tipoError;
 
 
 
@@ -261,6 +287,9 @@ class Administracion extends Controller
         // obtener input
         $input = $request->session()->get('input');
 
+        // tipo de error
+        $tipoError = $request->session()->get('tipoError');
+
         switch ($request->method()) {
             case 'POST':
                 //
@@ -273,14 +302,14 @@ class Administracion extends Controller
                         $datosPublicacion = $request->except(['_token', 'transaccion']);
                         
                         // array de mensajes de errores
-                        $errores = Administracion::verificarErroresPublicacion($datosPublicacion);
+                        $errores = Administracion::verificarErroresPublicacion($datosPublicacion,'crear');
                     
                         // verificar que no haya errores
                         if(count($errores) > 0){
                             // guardar errores en la sesion
                             // obtener pathname de la imagen del datosPublicacion
                             $datosPublicacion['imagen'] = "";
-                            return redirect('/administracion/publicacion')->with('errores', $errores)->with('input', $datosPublicacion);
+                            return redirect('/administracion/publicacion')->with('errores', $errores)->with('input', $datosPublicacion)->with('tipoError', 'crear');
                         }
 
                         // Cambiar tipo de usuario a 1 (administrador)
@@ -305,6 +334,19 @@ class Administracion extends Controller
                     case 'modificar':{
                         
                         $datosPublicacion = $request->except(['_token', 'transaccion']);
+
+                        // array de mensajes de errores
+                        $errores = Administracion::verificarErroresPublicacion($datosPublicacion,'modificar');
+                    
+                        // verificar que no haya errores
+                        if(count($errores) > 0){
+                            // guardar errores en la sesion
+                            // obtener ruta de la imagen del datosPublicacion
+                            $ruta = Publicacion::find($datosPublicacion['id'])->imagen;
+                            $datosPublicacion['imagen'] = $ruta;
+                            return redirect('/administracion/publicacion')->with('errores', $errores)->with('input', $datosPublicacion)->with('tipoError', 'modificar')->with('tipoError', 'modificar');
+                        }
+
                         $publicacion = Publicacion::find($datosPublicacion['id']);
 
                         // Cambiar tipo de publicacion a 1 (administrador)
@@ -352,6 +394,7 @@ class Administracion extends Controller
         $datos['publicaciones'] = Publicacion::all()->sortByDesc('created_at');
         $datos['errores'] = $errores;
         $datos['input'] = $input;
+        $datos['tipoError'] = $tipoError;
         
         return view('administracion-publicacion',$datos);
     }

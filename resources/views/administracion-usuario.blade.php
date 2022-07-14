@@ -93,7 +93,7 @@
                         
                                 @csrf
                                 
-                                @if(count($errores) > 0)
+                                @if( $tipoError == 'crear' && count($errores) > 0)
                                     <div class="alert alert-danger">
                                         <ul>
                                             @foreach($errores as $error)
@@ -115,49 +115,49 @@
 
                                 <div class="form-group">
                                     <label class="col-form-label" for="nombre">Nombre:</label>
-                                    <input class="form-control" name="nombre" id="nombre" value="<?php echo (isset($input['nombre']))?$input['nombre']:'' ?>" >
+                                    <input class="form-control" name="nombre" id="nombre" value="<?php echo ($tipoError=='crear' && isset($input['nombre']))?$input['nombre']:'' ?>" >
                                 </div>
                                 
                                 <div class="form-group-h row">
                                     <div class="form-group col-6">
                                         <label class="col-form-label" for="apellido_1">Apellido Paterno:</label>
-                                        <input class="form-control" name="apellido_1" id="apellido_1" value="<?php echo (isset($input['apellido_1']))?$input['apellido_1']:'' ?>" >
+                                        <input class="form-control" name="apellido_1" id="apellido_1" value="<?php echo ($tipoError=='crear' && isset($input['apellido_1']))?$input['apellido_1']:'' ?>" >
                                     </div>
                                     <div class="form-group col-6">
                                         <label class="col-form-label" for="apellido_2">Apellido Materno:</label>
-                                        <input class="form-control" name="apellido_2" id="apellido_2" value="<?php echo (isset($input['apellido_2']))?$input['apellido_2']:'' ?>" >
+                                        <input class="form-control" name="apellido_2" id="apellido_2" value="<?php echo ($tipoError=='crear' && isset($input['apellido_2']))?$input['apellido_2']:'' ?>" >
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label" for="rut">Rut:</label>
-                                    <input class="form-control" name="rut" id="rut" value="<?php echo (isset($input['rut']))?$input['rut']:'' ?>" >
+                                    <input class="form-control" name="rut" id="rut" value="<?php echo ($tipoError=='crear' && isset($input['rut']))?$input['rut']:'' ?>" >
                                 </div>
                                 
                                 <div class="form-group-h row">
                                     <div class="form-group col-6">
                                         <label class="col-form-label" for="fecha_nacimiento">Fecha de nacimiento:</label>
-                                        <input class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" type="date" value="<?php echo (isset($input['fecha_nacimiento']))?$input['fecha_nacimiento']:'' ?>" >
+                                        <input class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" type="date" value="<?php echo ($tipoError=='crear' && isset($input['fecha_nacimiento']))?$input['fecha_nacimiento']:'' ?>" >
                                     </div>
                                     <div class="form-group col-6">
                                         <label class="col-form-label" for="fecha_ingreso">Fecha de ingreso:</label>
-                                        <input class="form-control" name="fecha_ingreso" id="fecha_ingreso" type="date" value="<?php echo (isset($input['fecha_ingreso']))?$input['fecha_ingreso']:'' ?>" >
+                                        <input class="form-control" name="fecha_ingreso" id="fecha_ingreso" type="date" value="<?php echo ($tipoError=='crear' && isset($input['fecha_ingreso']))?$input['fecha_ingreso']:'' ?>" >
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label" for="carrera">Carrera:</label>
-                                    <input class="form-control" name="carrera" id="carrera" value="<?php echo (isset($input['carrera']))?$input['carrera']:'' ?>" >
+                                    <input class="form-control" name="carrera" id="carrera" value="<?php echo ($tipoError=='crear' && isset($input['carrera']))?$input['carrera']:'' ?>" >
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label" for="correo">Correo electronico:</label>
-                                    <input type="email" class="form-control" name="correo" id="correo" value="<?php echo (isset($input['correo']))?$input['correo']:'' ?>" >
+                                    <input type="email" class="form-control" name="correo" id="correo" value="<?php echo ($tipoError=='crear' && isset($input['correo']))?$input['correo']:'' ?>" >
                                 </div>                                                   
 
                                 <div class="form-row mb-3" style="align-items: center;">
                                     <label for="tipo_usuario" class="col-3">Administrador</label>
                                     <div class="col">
-                                        <input type="checkbox" id="tipo_usuario" name="tipo_usuario" <?php echo (isset($input['tipo_usuario']))?'checked':'' ?> >
+                                        <input type="checkbox" id="tipo_usuario" name="tipo_usuario" <?php echo ($tipoError=='crear' && isset($input['tipo_usuario']))?'checked':'' ?> >
                                     </div>
                                 </div>       
                         
@@ -193,13 +193,23 @@
 
                     
                             <div class="modal-body">
+
+                                    @if( $tipoError == 'modificar' && count($errores) > 0)
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach($errores as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                         
                                     @csrf
 
                                     <div class="form-group">
                                         <label for="imagen">Foto de perfil</label>
 
-                                        <img id="imgModificar" alt="foto perfil usuario" style="max-width: 200px;max-height: 200px; margin: 0 auto;margin-bottom:2rem">
+                                        <img id="imgModificar" alt="foto perfil usuario" style="max-width: 200px;max-height: 200px; margin: 0 auto;margin-bottom:2rem" src="<?php echo asset('storage'),'/',(($tipoError=='modificar' && isset($input['imagen']))?$input['imagen']:'') ?>">
 
                                         <input type="file" class="form-control-file" id="modificar-imagen" name="imagen" accept=".png, .jpeg" onchange="loadFile(event,'imgModificar')">
                                         
@@ -207,49 +217,49 @@
 
                                     <div class="form-group">
                                         <label class="col-form-label" for="modificar-nombre">Nombre:</label>
-                                        <input class="form-control" name="nombre" id="modificar-nombre">
+                                        <input class="form-control" name="nombre" id="modificar-nombre" value="<?php echo ($tipoError=='modificar' && isset($input['nombre']))?$input['nombre']:'' ?>">
                                     </div>
                                     
                                     <div class="form-group-h row">
                                         <div class="form-group col-6">
                                             <label class="col-form-label" for="modificar-apellido_1">Apellido Paterno:</label>
-                                            <input class="form-control" name="apellido_1" id="modificar-apellido_1">
+                                            <input class="form-control" name="apellido_1" id="modificar-apellido_1" value="<?php echo ($tipoError=='modificar' && isset($input['apellido_1']))?$input['apellido_1']:'' ?>">
                                         </div>
                                         <div class="form-group col-6">
                                             <label class="col-form-label" for="modificar-apellido_2">Apellido Materno:</label>
-                                            <input class="form-control" name="apellido_2" id="modificar-apellido_2">
+                                            <input class="form-control" name="apellido_2" id="modificar-apellido_2" value="<?php echo ($tipoError=='modificar' && isset($input['apellido_2']))?$input['apellido_2']:'' ?>">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label" for="modificar-rut">Rut:</label>
-                                        <input class="form-control" name="rut" id="modificar-rut" readonly>
+                                        <input class="form-control" name="rut" id="modificar-rut" readonly value="<?php echo ($tipoError=='modificar' && isset($input['rut']))?$input['rut']:'' ?>">
                                     </div>
                                     
                                     <div class="form-group-h row">
                                         <div class="form-group col-6">
                                             <label class="col-form-label" for="modificar-fecha_nacimiento">Fecha de nacimiento:</label>
-                                            <input class="form-control" name="fecha_nacimiento" id="modificar-fecha_nacimiento" type="date">
+                                            <input class="form-control" name="fecha_nacimiento" id="modificar-fecha_nacimiento" type="date" value="<?php echo ($tipoError=='modificar' && isset($input['fecha_nacimiento']))?$input['fecha_nacimiento']:'' ?>">
                                         </div>
                                         <div class="form-group col-6">
                                             <label class="col-form-label" for="modificar-fecha_ingreso">Fecha de ingreso:</label>
-                                            <input class="form-control" name="fecha_ingreso" id="modificar-fecha_ingreso" type="date">
+                                            <input class="form-control" name="fecha_ingreso" id="modificar-fecha_ingreso" type="date" value="<?php echo ($tipoError=='modificar' && isset($input['fecha_ingreso']))?$input['fecha_ingreso']:'' ?>">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label" for="modificar-carrera">Carrera:</label>
-                                        <input class="form-control" name="carrera" id="modificar-carrera">
+                                        <input class="form-control" name="carrera" id="modificar-carrera" value="<?php echo ($tipoError=='modificar' && isset($input['carrera']))?$input['carrera']:'' ?>">
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label" for="modificar-correo">Correo electronico:</label>
-                                        <input type="email" class="form-control" name="correo" id="modificar-correo">
+                                        <input type="email" class="form-control" name="correo" id="modificar-correo" value="<?php echo ($tipoError=='modificar' && isset($input['correo']))?$input['correo']:'' ?>">
                                     </div>                                                   
 
                                     <div class="form-row mb-3" style="align-items: center;">
                                         <label for="modificar-tipo_usuario" class="col-3">Administrador</label>
                                         <div class="col">
-                                            <input type="checkbox" id="modificar-tipo_usuario" name="tipo_usuario">
+                                            <input type="checkbox" id="modificar-tipo_usuario" name="tipo_usuario" <?php echo ($tipoError=='modificar' && isset($input['tipo_usuario']))?'checked':'' ?>>
                                         </div>
                                     </div>       
                         
@@ -402,34 +412,35 @@
 
 <script>
     // esta funcion retorna el formato de rut con el guion y puntos
-    function formatoRut(rut) {
-        var valor = rut.value.replace('.','');
-        valor = valor.replace('-','');
-        var cuerpo = valor.slice(0,-1);
-        var dv = valor.slice(-1).toUpperCase();
-
-        if(rut.value.length > 0) {
-            // se agrega el guion al rut
-            rut.value = cuerpo + '-'+ dv
+    document.getElementById('rut').addEventListener('input', function(evt) {
+        let value = this.value.replace(/\./g, '').replace('-', '');
+        
+        if (value.match(/^(\d{2})(\d{3}){2}(\w{1})$/)) {
+            value = value.replace(/^(\d{2})(\d{3})(\d{3})(\w{1})$/, '$1.$2.$3-$4');
         }
-        
-    }
-
-    $('#rut').keyup(function(){
-        
-        formatoRut(document.getElementById('rut'));
-        
+        else if (value.match(/^(\d)(\d{3}){2}(\w{0,1})$/)) {
+            value = value.replace(/^(\d)(\d{3})(\d{3})(\w{0,1})$/, '$1.$2.$3-$4');
+        }
+        else if (value.match(/^(\d)(\d{3})(\d{0,2})$/)) {
+            value = value.replace(/^(\d)(\d{3})(\d{0,2})$/, '$1.$2.$3');
+        }
+        else if (value.match(/^(\d)(\d{0,2})$/)) {
+            value = value.replace(/^(\d)(\d{0,2})$/, '$1.$2');
+        }
+        this.value = value;
     });
 
     <?php
     // si hay errores
     if(count($errores) > 0){
         // delay de 200ms para que se muestre el mensaje de error
-        echo "setTimeout(function(){
+        echo ($tipoError=='crear') ? "setTimeout(function(){
             $('#agregarUsuario').modal('show');
+        }, 200);" : "setTimeout(function(){
+            $('#modificarUsuario').modal('show');
         }, 200);";
     }?>
-
+    
 </script>
 
 @stop

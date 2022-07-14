@@ -86,7 +86,7 @@
 
                                 @csrf
 
-                                @if(count($errores) > 0)
+                                @if( $tipoError == 'crear' && count($errores) > 0)
                                     <div class="alert alert-danger">
                                         <ul>
                                             @foreach($errores as $error)
@@ -102,7 +102,7 @@
                                 <div class="form-row mb-3">
                                     <label for="formControlInput1" class="col-form-label col-12 col-md-3">Título</label>
                                     <div class="col">
-                                        <input type="text" class="form-control" name="titulo" id="titulo" value="<?php echo (isset($input['titulo']))?$input['titulo']:'' ?>">
+                                        <input type="text" class="form-control" name="titulo" id="titulo" value="<?php echo ($tipoError=='crear' && isset($input['titulo']))?$input['titulo']:'' ?>">
                                     </div>
                                 </div>                           
                                     
@@ -120,14 +120,14 @@
                                     <label for="formControlInput3" class="col-12 col-md-3">Contenido</label>
                                     <div class="col">
                                         <!--? style -->
-                                        <textarea class="form-control" style="height: 200px; resize: none;" name="contenido" id="contenido"><?php echo (isset($input['contenido']))?$input['contenido']:''?></textarea>
+                                        <textarea class="form-control" style="height: 200px; resize: none;" name="contenido" id="contenido"><?php echo ($tipoError=='crear' && isset($input['contenido']))?$input['contenido']:''?></textarea>
                                     </div>
                                 </div>
                                 
                                 <div class="form-row mb-3">
                                     <label for="formControlInput4" class="col-3">Actividad</label>
                                     <div class="col" >
-                                        <input type="checkbox" name="actividad" id="actividad" <?php echo (isset($input['actividad']))?'checked':'' ?> >
+                                        <input type="checkbox" name="actividad" id="actividad" <?php echo ($tipoError=='crear' && isset($input['actividad']))?'checked':'' ?> >
                                     </div>
                                 </div>                                        
                             
@@ -148,6 +148,7 @@
             <form method="post" enctype="multipart/form-data">
                 <div class="modal fade" id="modificarPublicacion">
                     <div class="modal-dialog">
+
                         <div class="modal-content">
 
                             <input type="hidden" name="transaccion" value="modificar">
@@ -161,7 +162,17 @@
                             </div>
 
                             <div class="modal-body">
-                            
+                                
+                                @if( $tipoError == 'modificar' && count($errores) > 0)
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach($errores as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif  
+
                                 @csrf
 
                                 <!-- se agrega el rut del usuario autenticado -->
@@ -170,7 +181,7 @@
                                 <div class="form-row mb-3">
                                     <label for="modificar-titulo" class="col-form-label col-12 col-md-3">Título</label>
                                     <div class="col">
-                                        <input type="text" id="modificar-titulo"  name="titulo" class="form-control" value="Titulo de publicacion">
+                                        <input type="text" id="modificar-titulo"  name="titulo" class="form-control" value="<?php echo ($tipoError=='modificar' && isset($input['titulo']))?$input['titulo']:'' ?>">
                                     </div>
                                 </div>
                     
@@ -179,7 +190,7 @@
                                     <div class="col">
                                         <input id="modificar-imagen" type="file" class="form-control-file" name="imagen" accept=".png, .jpeg" onchange="loadFile(event, 'imgModificar')">
                                         <!--? style dentro csss-->
-                                        <img src="img/publicacion0.jpg" class="mt-2" id="imgModificar" alt="Imagen publicación" style="max-width: 200px;">
+                                        <img src="<?php echo asset('storage'),'/',(($tipoError=='modificar' && isset($input['imagen']))?$input['imagen']:'') ?>" class="mt-2" id="imgModificar" alt="Imagen publicación" style="max-width: 200px;">
                                     </div>
                                 </div>
                     
@@ -187,14 +198,14 @@
                                     <label for="modificar-contenido" class="col-12 col-md-3">Contenido</label>
                                     <div class="col">
                                         <!--? style dentro csss-->
-                                        <textarea class="form-control" style="height: 200px; resize: none;" id="modificar-contenido" name="contenido">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam sapiente recusandae quis enim dolor incidunt placeat ducimus, laudantium error ut, eius pariatur cumque minus totam laborum! Perspiciatis aliquam animi sapiente!</textarea>
+                                        <textarea class="form-control" style="height: 200px; resize: none;" id="modificar-contenido" name="contenido"><?php echo ($tipoError=='modificar' && isset($input['contenido']))?$input['contenido']:'' ?></textarea>
                                     </div>
                                 </div>
                                 
                                 <div class="form-row mb-3" style="align-items: center;">
                                     <label for="modificar-actividad" class="col-3">Actividad</label>
                                     <div class="col">
-                                        <input type="checkbox" id="modificar-actividad" name="actividad">
+                                        <input type="checkbox" id="modificar-actividad" name="actividad" <?php echo ($tipoError=='modificar' && isset($input['actividad']))?'checked':'' ?> >
                                     </div>
                                 </div>                                        
                                 
@@ -335,11 +346,14 @@
     }
 
     <?php
+    
     // si hay errores
     if(count($errores) > 0){
         // delay de 200ms para que se muestre el mensaje de error
-        echo "setTimeout(function(){
+        echo ($tipoError=='crear') ? "setTimeout(function(){
             $('#agregarPublicacion').modal('show');
+        }, 200);" : "setTimeout(function(){
+            $('#modificarPublicacion').modal('show');
         }, 200);";
     }?>
 

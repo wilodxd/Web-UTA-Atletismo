@@ -30,38 +30,6 @@
 
 <script>
     
-    // esta funcion retorna el formato de rut con el guion y puntos
-    // function formatoRut(rut) {
-        
-    //     var valor = rut.value.replace('.','');
-    //     // dejar solo numeros, k o K y el guion
-    //     valor = valor.replace(/[^\dKk-]/g,'');
-    //     // se actualiza el valor del rut
-    //     rut.value = valor;
-
-    //     // recortar mas de 10 digitos
-    //     if(valor.length > 9){
-    //         valor = valor.slice(0,9);
-    //     }
-
-    //     valor = valor.replace('-','');
-    //     var cuerpo = valor.slice(0,-1);
-    //     var dv = valor.slice(-1).toUpperCase();
-        
-    //     // agregar los puntos y guion
-    //     if(cuerpo.length > 0) {
-    //         // se agrega el guion al rut
-    //         rut.value = cuerpo + '-'+ dv
-    //     }
-        
-    // }
-
-    // $('#rut').keyup(function(){
-        
-    //     formatoRut(document.getElementById('rut'));
-        
-    // });
-
     document.getElementById('rut').addEventListener('input', function(evt) {
         let value = this.value.replace(/\./g, '').replace('-', '');
         

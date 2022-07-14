@@ -365,8 +365,8 @@
             hora = progreso.fecha.getHours() + ':' + progreso.fecha.getMinutes();
             graficoVelocidad_label.push(hora);
             graficoVelocidad_data.push(progreso.velocidad);
-            resumenDia_distanciaTotal+=progreso.distancia;
-            resumenDia_velocidadPromedioSuma+=progreso.velocidad;
+            resumenDia_distanciaTotal+= parseFloat(progreso.distancia);
+            resumenDia_velocidadPromedioSuma+= parseFloat(progreso.velocidad);
             resumenDia_numeroRegistros++;
             if( progreso.velocidad > resumenDia_Progreso_mejorVelocidad.velocidad ){
                 resumenDia_Progreso_mejorVelocidad = progreso;
