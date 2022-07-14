@@ -94,8 +94,8 @@ class Administracion extends Controller
         }
 
         // validar tamaño imagen
-        if(isset($datosUsuario['imagen'])){
-            $imagen = $datosUsuario['imagen'];
+        if(isset($datosPublicacion['imagen'])){
+            $imagen = $datosPublicacion['imagen'];
             $tamano = $imagen->getSize();
             if($tamano > 2000000){
                 $errores['imagen'] = 'La imagen debe tener un tamaño menor a 2MB';

@@ -110,9 +110,9 @@ class Perfil extends Controller
             // imprimir datos progreso personal
             $progresoPersonal->delete();
 
-            // return redirect('/perfil');
+            return redirect('/perfil');
         }
 
-        // return redirect('/');
+        return redirect('/');
     }
 }

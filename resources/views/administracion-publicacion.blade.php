@@ -120,14 +120,14 @@
                                     <label for="formControlInput3" class="col-12 col-md-3">Contenido</label>
                                     <div class="col">
                                         <!--? style -->
-                                        <textarea class="form-control" style="height: 200px; resize: none;" name="contenido" id="contenido" value="<?php echo (isset($input['contenido']))?$input['contenido']:'' ?>"></textarea>
+                                        <textarea class="form-control" style="height: 200px; resize: none;" name="contenido" id="contenido"><?php echo (isset($input['contenido']))?$input['contenido']:''?></textarea>
                                     </div>
                                 </div>
                                 
                                 <div class="form-row mb-3">
                                     <label for="formControlInput4" class="col-3">Actividad</label>
                                     <div class="col" >
-                                        <input type="checkbox" name="actividad" id="actividad" <?php echo (isset($input['tipo_usuario']))?'checked':'' ?>>
+                                        <input type="checkbox" name="actividad" id="actividad" <?php echo (isset($input['actividad']))?'checked':'' ?> >
                                     </div>
                                 </div>                                        
                             
@@ -259,7 +259,9 @@
     };
 </script>
 
-<script type="text/javascript">
+
+
+<script>
     // crear publicacion
     function Publicacion(id, titulo, contenido, imagen, actividad, created_at, updated_at){
         this.id = id;
@@ -275,12 +277,22 @@
     // lista de publicaciones
     var listaPublicaciones = [];
 
-    // almacena todas las publicaciones en un array
-    <?php
-        foreach($publicaciones as $publicacion){
-            echo "listaPublicaciones.push(new Publicacion(".$publicacion->id.", '".$publicacion->titulo."', '".$publicacion->contenido."', '".$publicacion->imagen."', ".$publicacion->actividad.", '".$publicacion->created_at."', '".$publicacion->updated_at."'));";
-        }
-    ?>
+    // obtener publicaciones
+    var publicaciones = <?php echo json_encode($publicaciones);?>;
+    var cantidadPublicaciones = <?php echo count($publicaciones); ?>
+    // var publicaciones = JSON.parse(publicaciones);
+
+    // agregar publicaciones a la lista
+    for(var i = 0; i < cantidadPublicaciones; i++){
+        
+        console.log(publicaciones[i].id);
+        publicacion = new Publicacion(publicaciones[i].id, publicaciones[i].titulo, publicaciones[i].contenido, publicaciones[i].imagen, publicaciones[i].actividad, publicaciones[i].created_at, publicaciones[i].updated_at);
+        console.log(publicacion);
+        listaPublicaciones.push(publicacion);
+
+    }
+
+    
 
     // buscar publicaion por id
     function buscarPublicacion(id){
@@ -295,15 +307,18 @@
 
 <script>
 
+
+
     function rellenarFormularioModificarPublicacion(id){
+
         var publicacion = buscarPublicacion(id);
+        console.log(publicacion);
         document.getElementById("modificar-id").value = publicacion.id;
         document.getElementById("modificar-titulo").value = publicacion.titulo;
         document.getElementById("modificar-contenido").value = publicacion.contenido;
         document.getElementById("modificar-actividad").checked = publicacion.actividad;
         document.getElementById("imgModificar").src = '<?php echo asset('storage').'/' ?>' + publicacion.imagen;
         
-
         
     }
 

@@ -14,7 +14,7 @@
 
         <div class="campo">
             <label for="rut">Rut:</label>
-            <input type="text" name="rut" id="rut" required>
+            <input type="text" name="rut" id="rut" required maxlength="12">
         </div>
         <div class="campo">
             <label for="password">Contraseña:</label>
@@ -31,23 +31,53 @@
 <script>
     
     // esta funcion retorna el formato de rut con el guion y puntos
-    function formatoRut(rut) {
-        var valor = rut.value.replace('.','');
-        valor = valor.replace('-','');
-        var cuerpo = valor.slice(0,-1);
-        var dv = valor.slice(-1).toUpperCase();
+    // function formatoRut(rut) {
+        
+    //     var valor = rut.value.replace('.','');
+    //     // dejar solo numeros, k o K y el guion
+    //     valor = valor.replace(/[^\dKk-]/g,'');
+    //     // se actualiza el valor del rut
+    //     rut.value = valor;
 
-        if(rut.value.length > 0) {
-            // se agrega el guion al rut
-            rut.value = cuerpo + '-'+ dv
+    //     // recortar mas de 10 digitos
+    //     if(valor.length > 9){
+    //         valor = valor.slice(0,9);
+    //     }
+
+    //     valor = valor.replace('-','');
+    //     var cuerpo = valor.slice(0,-1);
+    //     var dv = valor.slice(-1).toUpperCase();
+        
+    //     // agregar los puntos y guion
+    //     if(cuerpo.length > 0) {
+    //         // se agrega el guion al rut
+    //         rut.value = cuerpo + '-'+ dv
+    //     }
+        
+    // }
+
+    // $('#rut').keyup(function(){
+        
+    //     formatoRut(document.getElementById('rut'));
+        
+    // });
+
+    document.getElementById('rut').addEventListener('input', function(evt) {
+        let value = this.value.replace(/\./g, '').replace('-', '');
+        
+        if (value.match(/^(\d{2})(\d{3}){2}(\w{1})$/)) {
+            value = value.replace(/^(\d{2})(\d{3})(\d{3})(\w{1})$/, '$1.$2.$3-$4');
         }
-        
-    }
-
-    $('#rut').keyup(function(){
-        
-        formatoRut(document.getElementById('rut'));
-        
+        else if (value.match(/^(\d)(\d{3}){2}(\w{0,1})$/)) {
+            value = value.replace(/^(\d)(\d{3})(\d{3})(\w{0,1})$/, '$1.$2.$3-$4');
+        }
+        else if (value.match(/^(\d)(\d{3})(\d{0,2})$/)) {
+            value = value.replace(/^(\d)(\d{3})(\d{0,2})$/, '$1.$2.$3');
+        }
+        else if (value.match(/^(\d)(\d{0,2})$/)) {
+            value = value.replace(/^(\d)(\d{0,2})$/, '$1.$2');
+        }
+        this.value = value;
     });
 
 </script>
