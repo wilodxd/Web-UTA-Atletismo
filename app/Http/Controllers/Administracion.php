@@ -227,7 +227,11 @@ class Administracion extends Controller
                         if($request->hasFile('imagen')){
                             
                             // Eliminar imagen anterior
-                            Storage::delete( 'public/' . $usuario->imagen);
+                            // comprobar que no se la imagen por defecto
+                            if($usuario->imagen != 'img/' . 'default_user.png'){
+                                Storage::delete( 'public/' . $usuario->imagen);
+                            }
+                            
 
                             $datosUsuario['imagen'] = $request->file('imagen')->store('uploads', 'public');
 
@@ -241,7 +245,10 @@ class Administracion extends Controller
                         $rut = $request->input('rut');
                         $usuario = Usuario::find($rut);
                         // Eliminar imagen
-                        Storage::delete( 'public/' . $usuario->imagen);
+                        // comprobar que no se la imagen por defecto
+                        if($usuario->imagen != 'img/' . 'default_user.png'){
+                            Storage::delete( 'public/' . $usuario->imagen);
+                        }
 
                         $usuario->delete();
                         break;
