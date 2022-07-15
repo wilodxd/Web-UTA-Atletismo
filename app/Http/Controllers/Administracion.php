@@ -72,7 +72,7 @@ class Administracion extends Controller
                     $errores['imagen'] = 'La foto de perfil debe tener un tamaño menor a 2MB';
                 }
             }else{
-                $errores['imagen'] = 'La foto de perfil es obligatoria';
+                // $errores['imagen'] = 'La foto de perfil es obligatoria';
             }
         }
         
@@ -191,7 +191,7 @@ class Administracion extends Controller
                         if($request->hasFile('imagen')){
                             $datosUsuario['imagen'] = $request->file('imagen')->store('uploads', 'public');
                         }else{
-                            $datosUsuario['imagen'] = 'default.jpg';
+                            $datosUsuario['imagen'] = 'img/' . 'default_user.png';
                         }
 
                         Usuario::insert($datosUsuario);

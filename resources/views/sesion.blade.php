@@ -14,11 +14,11 @@
 
         <div class="campo">
             <label for="rut">Rut:</label>
-            <input type="text" name="rut" id="rut" required maxlength="12">
+            <input type="text" name="rut" id="rut" required maxlength="12" placeholder="Ingresa el rut">
         </div>
         <div class="campo">
             <label for="password">Contraseña:</label>
-            <input type="password" name="password" id="password" required>
+            <input type="password" name="password" id="password" required placeholder="Ingresa la contraseña">
         </div>
         <input type="submit" value="Iniciar sesión" class="btn btn-primary">
 

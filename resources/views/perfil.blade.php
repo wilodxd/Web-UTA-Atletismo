@@ -17,7 +17,7 @@
                     <div class="collapse show" id="datosPersonales">
                         <div class="card flex-row flex-wrap flex-md-nowrap align-items-center border border-dark" style="min-height: 300px;">
                             <div class="card-header border-0 ">
-                                <img src="{{ asset('storage/' . $imagenPerfil) }}" alt="imagen_usuario" class="img-fluid img-responsive">
+                                <img src="{{ asset('storage/' . $imagenPerfil) }}" alt="imagen_usuario" class="foto-perfil">
                                 <!-- mostrara el nombre completo -->
                                 <h2 class="card-title">{{Auth::user()->nombre}} {{Auth::user()->apellido_1}} {{Auth::user()->apellido_2}}</h2>
                             </div>
@@ -802,7 +802,6 @@
 
 
 </script>
-
 
 <script>
     // rellenar formulario eliminar
