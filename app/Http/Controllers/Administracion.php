@@ -29,6 +29,8 @@ class Administracion extends Controller
             if($usuario){
                 $errores['rut'] = 'El rut ya existe';
             }
+
+            
         }
 
         // validar nombre
@@ -36,31 +38,63 @@ class Administracion extends Controller
         if(strlen($nombre) < 3){
             $errores['nombre'] = 'El nombre debe tener al menos 3 caracteres';
         }
+        // validar que el nombre tengo menos de 50 caracteres
+        if(strlen($nombre) > 50){
+            $errores['nombre'] = 'El nombre no puede tener mas de 50 caracteres';
+        }
+
         // validar apellido 1
         $apellido_1 = $datosUsuario['apellido_1'];
         if(strlen($apellido_1) < 3){
             $errores['apellido_1'] = 'El apellido paterno debe tener al menos 3 caracteres';
         }
+        // validar que apellido 1 tengo menos de 50 caracteres
+        if(strlen($apellido_1) > 50){
+            $errores['apellido_1'] = 'El apellido paterno no puede tener mas de 50 caracteres';
+        }
+
         // validar apellido 2
         $apellido_2 = $datosUsuario['apellido_2'];
         if(strlen($apellido_2) < 3){
-            $errores['apellido_2'] = 'El apellido  debe tener al menos 3 caracteres';
+            $errores['apellido_2'] = 'El apellido materno debe tener al menos 3 caracteres';
         }
+
+        // validar que apellido 2 tengo menos de 50 caracteres
+        if(strlen($apellido_2) > 50){
+            $errores['apellido_2'] = 'El apellido materno no puede tener mas de 50 caracteres';
+        }
+
+
         // validar carrera
         $carrera = $datosUsuario['carrera'];
         if(strlen($carrera) < 3){
             $errores['carrera'] = 'La carrera debe tener al menos 3 caracteres';
         }
 
+        // validar que carrera tengo menos de 50 caracteres
+        if(strlen($carrera) > 50){
+            $errores['carrera'] = 'La carrera no puede tener mas de 50 caracteres';
+        }
+
+
         // validar correo
         $correo = $datosUsuario['correo'];
         if(!filter_var($correo, FILTER_VALIDATE_EMAIL)){
             $errores['correo'] = 'El correo no es válido';
         }
+        // validar que el correo tenga menos de 50 caracteres
+        if(strlen($correo) > 50){
+            $errores['correo'] = 'El correo no puede tener mas de 50 caracteres';
+        }
         // validar rut
         $rut = $datosUsuario['rut'];
         if(strlen($rut) < 9){
             $errores['rut'] = 'El rut debe tener al menos 9 caracteres';
+        }
+
+        // validar que rut tengo menos de 50 caracteres
+        if(strlen($rut) > 50){
+            $errores['rut'] = 'El rut no puede tener mas de 50 caracteres';
         }
         
         if($tipo == 'crear'){
@@ -71,10 +105,9 @@ class Administracion extends Controller
                 if($tamano > 2000000){
                     $errores['imagen'] = 'La foto de perfil debe tener un tamaño menor a 2MB';
                 }
-            }else{
-                // $errores['imagen'] = 'La foto de perfil es obligatoria';
             }
         }
+
         
 
         return $errores;
@@ -95,11 +128,21 @@ class Administracion extends Controller
         if(strlen($titulo) < 3){
             $errores['titulo'] = 'El titulo debe tener al menos 3 caracteres';
         }
+        // comprobar que el titulo tenga un maximo de 100 caracteres
+        if(strlen($titulo) > 100){
+            $errores['titulo'] = 'El titulo debe tener un maximo de 100 caracteres';
+        }
         // validar descripcion
         $contenido = $datosPublicacion['contenido'];
         if(strlen($contenido) < 10){
             $errores['contenido'] = 'El contenido debe tener al menos 10 caracteres';
         }
+        
+        // comprobar que el rut_autor tenga maximo de 12 caracteres
+        if(strlen($datosPublicacion['rut_autor']) > 12){
+            $errores['rut_autor'] = 'El rut_autor debe tener un maximo de 12 caracteres';
+        }
+
 
         if($tipo == 'crear'){
             // validar tamaño imagen
