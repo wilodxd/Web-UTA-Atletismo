@@ -13,42 +13,42 @@ const webp = require('gulp-webp');
 const avif = require('gulp-avif');
 
 function css( done ) {
-    src('src/scss/app.scss')
+    src('resources/scss/app.scss')
         .pipe( sourcemaps.init() )
         .pipe( sass() )
         .pipe( postcss([ autoprefixer(), cssnano() ]) )
         .pipe( sourcemaps.write('.'))
-        .pipe( dest('build/css') )
+        .pipe( dest('public/css') )
 
     done();
 }
 
 function imagenes() {
-    return src('src/img/**/*')
+    return src('resources/img/**/*')
         .pipe( imagemin({ optimizationLevel: 3 }) )
-        .pipe( dest('build/img') )
+        .pipe( dest('public/img') )
 }
 
 function versionWebp() {
     const opciones = {
         quality: 50
     }
-    return src('src/img/**/*.{png,jpg}')
+    return src('resources/img/**/*.{png,jpg}')
         .pipe( webp( opciones ) )
-        .pipe( dest('build/img') )
+        .pipe( dest('public/img') )
 }
 function versionAvif() {
     const opciones = {
         quality: 50
     }
-    return src('src/img/**/*.{png,jpg}')
+    return src('resources/img/**/*.{png,jpg}')
         .pipe( avif( opciones ) )
-        .pipe( dest('build/img'))
+        .pipe( dest('public/img'))
 }
 
 function dev() {
-    watch( 'src/scss/**/*.scss', css );
-    watch( 'src/img/**/*', imagenes );
+    watch( 'resources/scss/**/*.scss', css );
+    watch( 'resources/img/**/*', imagenes );
 }
 
 

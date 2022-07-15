@@ -1,0 +1,39 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.seccion-perfil{
+    min-height: 70vh;
+}
+
+.form-group-time{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.form-group--horizontal{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+// Mostrara cierta cantidad de columnas segun el tamaño de la pantalla
+.tr-progresos th:nth-child(5),
+.tr-progresos td:nth-child(5){
+    display: none !important;
+    // background-color: red;
+    @include m.tablet { 
+        display: table-cell !important;
+    }
+}
+
+.foto-perfil{
+    width: 100%;
+    max-height: 19rem;
+    object-fit: cover;
+    border-radius: .5rem;
+    margin-bottom: 1rem;
+
+}

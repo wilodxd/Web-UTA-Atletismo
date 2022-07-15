@@ -1,0 +1,62 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.seccion-administracion {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.table{
+
+    th {
+        font-size: 1.8rem !important;
+        text-align: center !important;
+    }
+
+    tbody th{
+        font-weight: bold;
+        color: #fff;
+        background-color: #2c3e50;
+        border-color: #ddd;
+        text-align: center !important;
+        vertical-align: middle !important;
+    }
+
+    td{
+        text-align: center;
+        font-size: 1.8rem !important;
+        vertical-align: middle !important;
+    }
+
+    
+}
+
+// Mostrara cierta cantidad de columnas segun el tamaño de la pantalla
+.tr-usuarios th:nth-child(4),
+.tr-usuarios td:nth-child(4),
+.tr-usuarios th:nth-child(2),
+.tr-usuarios td:nth-child(2){
+    display: none !important;
+    // background-color: red;
+    @include m.tablet { 
+        display: table-cell !important;
+    }
+}
+
+// Mostrara cierta cantidad de columnas segun el tamaño de la pantalla
+.tr-publicaciones th:nth-child(4),
+.tr-publicaciones td:nth-child(4){
+    display: none !important;
+    // background-color: red;
+    @include m.tablet { 
+        display: table-cell !important;
+    }
+}
+
+// Escondera el contenido que no se necesita en la pantalla
+.table-responsive {
+    overflow-x: hidden !important;
+}
