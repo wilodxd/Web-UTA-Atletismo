@@ -16,8 +16,9 @@
     </main>
 
     <div class="lateral-contenedor">
-
-        @if($publicacionActual->actividad == 1)
+        <!-- verificar si esta logeado -->
+        
+        @if( Auth::check() && $publicacionActual->actividad == 1)
             
             <form class="actividad" action="/actividad">
                 <p class="actividad__texto">¿Desea inscribirse a esta actividad?</p>

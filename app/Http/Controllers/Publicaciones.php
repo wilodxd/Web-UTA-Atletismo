@@ -62,6 +62,11 @@ class Publicaciones extends Controller
 
     public function inscribirse(Request $request){
 
+        // verificar si esta logeado
+        if(!Auth::check()){
+            return redirect('/');
+        }
+
         // obtener rut de la autenticacion
         $rut_usuario = Auth::user()->rut;
         $id_publicacion = $request->input('id_publicacion');
