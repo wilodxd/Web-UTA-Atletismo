@@ -233,9 +233,6 @@ class Administracion extends Controller
 
                         }
 
-                        print('<pre>');
-                        print_r($datosUsuario['rut']);
-                        print('</pre>');
                         $usuario->update($datosUsuario);
                         break;
                     }
